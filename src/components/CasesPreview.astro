@@ -1,0 +1,348 @@
+---
+// src/components/CasesPreview.astro
+// Muestra de casos reales y autorizados de FOSST (src/data/casos.js)
+// Transparencia total: datos reales anonimizados sin inventar métricas comerciales
+import { CASOS } from '../data/casos.js';
+---
+
+<section class="cases-section" id="portafolio" aria-labelledby="cases-heading">
+  <div class="cases-container">
+    
+    <!-- Encabezado de Sección -->
+    <header class="cases-header">
+      <div class="cases-header-left">
+        <div class="section-eyebrow">
+          <span class="eyebrow-dot" aria-hidden="true"></span>
+          <span class="eyebrow-text">EXPERIENCIA COMPROBABLE</span>
+        </div>
+
+        <h2 id="cases-heading" class="cases-title">
+          Casos reales de intervención y <em class="title-accent">resultados medibles</em>.
+        </h2>
+      </div>
+
+      <div class="cases-header-right">
+        <p class="cases-intro">
+          Cada empresa tiene un grado de riesgo distinto. Aquí mostramos cómo resolvimos desafíos reales de clientes en manufactura, logística y servicios en Colombia.
+        </p>
+        <div class="cases-nav-links">
+          <a href="/portafolio" class="cases-link">
+            <span>Ver portafolio completo</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+          <span class="nav-sep" aria-hidden="true">·</span>
+          <a href="/clientes" class="cases-link subtle">
+            <span>Clientes y opiniones</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Muestra de los 3 Casos Autorizados (Asimétricos) -->
+    <div class="cases-showcase-grid">
+      {CASOS.map((caso, index) => (
+        <article class={`case-card ${index === 0 ? 'case-featured' : ''}`}>
+          <div class="case-card-header">
+            <span class="case-sector">{caso.sector}</span>
+            <span class="case-service-tag">{caso.servicio}</span>
+          </div>
+
+          <h3 class="case-card-title">{caso.titulo}</h3>
+
+          <div class="case-block problem-block">
+            <span class="case-label">DESAFÍO INICIAL</span>
+            <p>{caso.problema}</p>
+          </div>
+
+          <div class="case-block result-block">
+            <span class="case-label success">RESULTADO LOGRADO</span>
+            <p><strong>{caso.resultado}</strong></p>
+          </div>
+
+          <footer class="case-card-footer">
+            <span class="case-client-badge">{caso.cliente}</span>
+            <a href={`/portafolio/${caso.slug}`} class="case-read-link" aria-label={`Leer caso completo: ${caso.titulo}`}>
+              <span>Ver caso</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </footer>
+        </article>
+      ))}
+    </div>
+
+    <!-- Nota de Honestidad y Confidencialidad -->
+    <footer class="cases-disclaimer">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFC800" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="16" x2="12" y2="12"></line>
+        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+      </svg>
+      <span>
+        <strong>Compromiso de Confidencialidad FOSST:</strong> Los casos presentados corresponden a intervenciones reales, anonimizados conforme a acuerdos de confidencialidad comercial con nuestros clientes.
+      </span>
+    </footer>
+
+  </div>
+</section>
+
+<style>
+  .cases-section {
+    position: relative;
+    background-color: #001133;
+    color: #F7F7F2;
+    padding: 7rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .cases-container {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .cases-header {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+  @media (min-width: 900px) {
+    .cases-header {
+      grid-template-columns: 1.2fr 1fr;
+      align-items: flex-end;
+      gap: 3.5rem;
+    }
+  }
+
+  .section-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 1.25rem;
+  }
+  .eyebrow-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--yellow, #FFC800);
+    box-shadow: 0 0 10px rgba(255, 200, 0, 0.7);
+  }
+  .eyebrow-text {
+    font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--yellow, #FFC800);
+    text-transform: uppercase;
+  }
+
+  .cases-title {
+    font-family: var(--font-serif, 'Playfair Display', serif);
+    font-size: clamp(2.1rem, 3.5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: #FFFFFF;
+    margin: 0;
+  }
+  .title-accent {
+    color: var(--yellow, #FFC800);
+    font-style: italic;
+    font-weight: 600;
+  }
+
+  .cases-intro {
+    font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+    font-size: 0.98rem;
+    line-height: 1.65;
+    color: rgba(247, 247, 242, 0.8);
+    margin: 0 0 1.5rem;
+  }
+
+  .cases-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .cases-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--yellow, #FFC800);
+    font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: gap 0.2s ease, color 0.2s ease;
+  }
+  .cases-link:hover {
+    gap: 0.75rem;
+    color: #ffd01a;
+  }
+  .cases-link.subtle {
+    color: rgba(247, 247, 242, 0.75);
+    font-weight: 600;
+  }
+  .cases-link.subtle:hover {
+    color: #FFFFFF;
+    text-decoration: underline;
+  }
+  .nav-sep {
+    color: rgba(255, 255, 255, 0.3);
+  }
+
+  /* Grid de Casos */
+  .cases-showcase-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 3.5rem;
+  }
+  @media (min-width: 860px) {
+    .cases-showcase-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .case-card {
+    background: rgba(0, 20, 60, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2.2rem 1.8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  .case-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255, 200, 0, 0.35);
+    box-shadow: 0 12px 30px rgba(0, 10, 30, 0.5);
+  }
+
+  .case-featured {
+    border-color: rgba(255, 200, 0, 0.25);
+    background: linear-gradient(180deg, rgba(0, 26, 77, 0.8) 0%, rgba(0, 17, 51, 0.8) 100%);
+  }
+
+  .case-card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .case-sector {
+    font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: var(--yellow, #FFC800);
+    text-transform: uppercase;
+  }
+
+  .case-service-tag {
+    font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+    font-size: 0.78rem;
+    color: rgba(247, 247, 242, 0.7);
+  }
+
+  .case-card-title {
+    font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    line-height: 1.35;
+    margin: 0 0 1.5rem;
+  }
+
+  .case-block {
+    margin-bottom: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .case-block p {
+    font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: rgba(247, 247, 242, 0.78);
+    margin: 0;
+  }
+
+  .result-block {
+    background: rgba(255, 200, 0, 0.05);
+    border-left: 2.5px solid var(--yellow, #FFC800);
+    padding: 0.75rem 0.85rem;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 1.75rem;
+  }
+  .result-block p {
+    color: #FFFFFF;
+  }
+
+  .case-label {
+    font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: rgba(247, 247, 242, 0.6);
+  }
+  .case-label.success {
+    color: var(--yellow, #FFC800);
+  }
+
+  .case-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .case-client-badge {
+    font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+    font-size: 0.75rem;
+    color: rgba(247, 247, 242, 0.6);
+  }
+
+  .case-read-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--yellow, #FFC800);
+    text-decoration: none;
+    transition: gap 0.2s ease;
+  }
+  .case-read-link:hover {
+    gap: 0.6rem;
+    color: #ffd01a;
+  }
+
+  /* Disclaimer */
+  .cases-disclaimer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: rgba(247, 247, 242, 0.7);
+  }
+  .cases-disclaimer strong {
+    color: var(--yellow, #FFC800);
+  }
+</style>

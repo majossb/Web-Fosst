@@ -1,0 +1,228 @@
+---
+/**
+ * Página Nosotros — Quiénes somos, disciplinas y valores FOSST
+ */
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Quiénes Somos | FOSST Consultoría Integral"
+  description="Conoce el equipo multidisciplinario detrás de FOSST: SST, derecho laboral, seguridad vial, psicología, fisioterapia y gestión ambiental para mipymes."
+>
+  <div class="page-container">
+    <div class="container">
+      
+      <header class="page-header scroll-reveal">
+        <span class="badge-tag">Equipo multidisciplinario</span>
+        <h1>Acompañamos a las empresas a construir orden y seguridad</h1>
+        <p class="subtitle">
+          FOSST nació para brindar a las micro, pequeñas y medianas empresas en Colombia el respaldo técnico de una gran consultora, con la cercanía, agilidad y proporcionalidad que una mipyme necesita.
+        </p>
+      </header>
+
+      <!-- Propósito y pilares -->
+      <section class="pillars-section scroll-reveal">
+        <div class="pillar-card">
+          <span class="pillar-num">01</span>
+          <h3>Proporcionalidad real</h3>
+          <p>No aplicamos fórmulas de grandes multinacionales a empresas de 10 trabajadores. Diseñamos sistemas sostenibles que tu equipo realmente pueda operar.</p>
+        </div>
+
+        <div class="pillar-card">
+          <span class="pillar-num">02</span>
+          <h3>Enfoque multidisciplinario</h3>
+          <p>Unimos la visión técnica de seguridad y salud, la solidez jurídica laboral, el bienestar mental, la ergonomía física y la responsabilidad ambiental.</p>
+        </div>
+
+        <div class="pillar-card">
+          <span class="pillar-num">03</span>
+          <h3>Cero jerga de miedo</h3>
+          <p>No vendemos consultoría asustando con sanciones. Explicamos con claridad las obligaciones legales y acompañamos paso a paso en su cumplimiento.</p>
+        </div>
+      </section>
+
+      <!-- Disciplinas integradas -->
+      <section class="disciplines-section scroll-reveal">
+        <h2>Nuestras 6 áreas de especialidad</h2>
+        <div class="disciplines-grid">
+          <div class="discipline-item">
+            <h4>Seguridad y Salud en el Trabajo</h4>
+            <p>Diseño, ejecución y auditoría de estándares mínimos (Resolución 0312 de 2019).</p>
+          </div>
+          <div class="discipline-item">
+            <h4>Derecho Laboral y Preventivo</h4>
+            <p>Contratos, reglamento interno, descargos disciplinarios y debida diligencia.</p>
+          </div>
+          <div class="discipline-item">
+            <h4>Psicología Organizacional</h4>
+            <p>Batería de riesgo psicosocial, comités de convivencia y prevención del estrés.</p>
+          </div>
+          <div class="discipline-item">
+            <h4>Fisioterapia Laboral</h4>
+            <p>Vigilancia epidemiológica osteomuscular, pausas activas y reintegro laboral.</p>
+          </div>
+          <div class="discipline-item">
+            <h4>Seguridad Vial (PESV)</h4>
+            <p>Planes estratégicos de seguridad vial bajo la Resolución 40595 de 2022.</p>
+          </div>
+          <div class="discipline-item">
+            <h4>Gestión Ambiental</h4>
+            <p>Residuos peligrosos, vertimientos, emisiones y permisos de autoridad ambiental.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="about-cta scroll-reveal">
+        <h2>¿Listo para evaluar el estado de tu empresa?</h2>
+        <p>Inicia con nuestro diagnóstico técnico orientativo sin costo.</p>
+        <a href="/diagnostico" class="btn-primary">Hacer diagnóstico ahora</a>
+      </section>
+
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .page-container {
+    background-color: var(--blanco-calido);
+    min-height: 100vh;
+    padding-top: calc(var(--spacing-800) + 2rem);
+    padding-bottom: var(--spacing-900);
+  }
+
+  .page-header {
+    text-align: center;
+    max-width: 780px;
+    margin: 0 auto var(--spacing-800);
+  }
+
+  .badge-tag {
+    display: inline-block;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--azul-medio);
+    margin-bottom: var(--spacing-100);
+  }
+
+  .page-header h1 {
+    font-size: var(--text-4xl);
+    line-height: var(--lh-4xl);
+    color: var(--azul-marino);
+    margin-bottom: var(--spacing-200);
+  }
+
+  .page-header .subtitle {
+    font-size: var(--text-base);
+    color: var(--gris-oscuro);
+    margin: 0 auto;
+  }
+
+  .pillars-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-400);
+    margin-bottom: var(--spacing-800);
+  }
+
+  @media (min-width: 768px) {
+    .pillars-section {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .pillar-card {
+    background: #ffffff;
+    border: 1px solid var(--gris-borde);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-400);
+  }
+
+  .pillar-num {
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    color: var(--amarillo-casco);
+    display: block;
+    margin-bottom: var(--spacing-100);
+  }
+
+  .pillar-card h3 {
+    font-size: var(--text-xl);
+    color: var(--azul-marino);
+    margin-bottom: var(--spacing-100);
+  }
+
+  .pillar-card p {
+    font-size: var(--text-sm);
+    color: var(--gris-oscuro);
+  }
+
+  .disciplines-section {
+    margin-bottom: var(--spacing-800);
+  }
+
+  .disciplines-section h2 {
+    font-size: var(--text-3xl);
+    color: var(--azul-marino);
+    margin-bottom: var(--spacing-400);
+    text-align: center;
+  }
+
+  .disciplines-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-300);
+  }
+
+  @media (min-width: 600px) {
+    .disciplines-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 900px) {
+    .disciplines-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .discipline-item {
+    background: var(--gris-claro);
+    border: 1px solid var(--gris-borde);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-300);
+  }
+
+  .discipline-item h4 {
+    font-size: var(--text-base);
+    color: var(--azul-marino);
+    margin-bottom: var(--spacing-50);
+  }
+
+  .discipline-item p {
+    font-size: var(--text-xs);
+    color: var(--gris-oscuro);
+  }
+
+  .about-cta {
+    text-align: center;
+    background: var(--azul-marino);
+    color: var(--blanco-calido);
+    padding: var(--spacing-600) var(--spacing-400);
+    border-radius: var(--radius-xl);
+  }
+
+  .about-cta h2 {
+    font-size: var(--text-3xl);
+    color: #ffffff;
+    margin-bottom: var(--spacing-100);
+  }
+
+  .about-cta p {
+    font-size: var(--text-base);
+    color: var(--gris-claro);
+    margin: 0 auto var(--spacing-400);
+  }
+</style>

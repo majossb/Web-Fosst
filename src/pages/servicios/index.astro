@@ -1,0 +1,147 @@
+---
+/**
+ * Catálogo de Servicios FOSST — Vista general
+ */
+import Layout from '../../layouts/Layout.astro';
+import { SERVICIOS } from '../../data/servicios.js';
+---
+
+<Layout
+  title="Catálogo de Servicios de Consultoría en SST y Riesgos | FOSST"
+  description="Conoce los 9 servicios integrales de FOSST en seguridad y salud en el trabajo, asesoría jurídica, seguridad vial, gestión ambiental y bienestar para mipymes."
+>
+  <div class="page-container">
+    <div class="container">
+      <header class="page-header scroll-reveal">
+        <span class="badge-tag">Portafolio especializado</span>
+        <h1>Servicios integrales para mipymes</h1>
+        <p class="subtitle">
+          Soluciones técnicas y jurídicas proporcionales al tamaño, actividad económica y nivel de riesgo de tu empresa en Colombia.
+        </p>
+      </header>
+
+      <div class="services-grid">
+        {SERVICIOS.map((s) => (
+          <article class="service-card scroll-reveal">
+            <span class="service-index">0{s.id}</span>
+            <h2 class="service-title">{s.nombre}</h2>
+            <p class="service-desc">{s.descripcionCorta}</p>
+            
+            <div class="service-target">
+              <strong>Dirigido a:</strong> {s.dirigidoA}
+            </div>
+
+            <div class="service-actions">
+              <a href={`/servicios/${s.slug}`} class="btn-outline-dark">
+                Ver alcance detallado →
+              </a>
+              <a href="/diagnostico" class="btn-primary">
+                Diagnosticar mi necesidad
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .page-container {
+    background-color: var(--blanco-calido);
+    min-height: 100vh;
+    padding-top: calc(var(--spacing-800) + 2rem);
+    padding-bottom: var(--spacing-900);
+  }
+
+  .page-header {
+    margin-bottom: var(--spacing-700);
+    text-align: center;
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .badge-tag {
+    display: inline-block;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--azul-medio);
+    margin-bottom: var(--spacing-100);
+  }
+
+  .page-header h1 {
+    font-size: var(--text-4xl);
+    line-height: var(--lh-4xl);
+    color: var(--azul-marino);
+    margin-bottom: var(--spacing-200);
+  }
+
+  .page-header .subtitle {
+    font-size: var(--text-base);
+    color: var(--gris-oscuro);
+    margin: 0 auto;
+  }
+
+  .services-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-400);
+  }
+
+  .service-card {
+    background: #ffffff;
+    border: 1px solid var(--gris-borde);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-400);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--duration-hover) var(--ease-fluid),
+                box-shadow var(--duration-hover) ease;
+  }
+
+  .service-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .service-index {
+    display: inline-block;
+    font-size: var(--text-xs);
+    font-weight: 800;
+    color: var(--azul-medio);
+    letter-spacing: 0.1em;
+    margin-bottom: var(--spacing-75);
+  }
+
+  .service-title {
+    font-size: var(--text-2xl);
+    line-height: var(--lh-2xl);
+    color: var(--azul-marino);
+    margin-bottom: var(--spacing-100);
+  }
+
+  .service-desc {
+    font-size: var(--text-base);
+    line-height: var(--lh-base);
+    color: var(--gris-oscuro);
+    margin-bottom: var(--spacing-200);
+  }
+
+  .service-target {
+    font-size: var(--text-sm);
+    line-height: var(--lh-sm);
+    color: var(--gris-apagado);
+    background: var(--gris-claro);
+    padding: var(--spacing-100) var(--spacing-200);
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--spacing-300);
+  }
+
+  .service-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-200);
+  }
+</style>

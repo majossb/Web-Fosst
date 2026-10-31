@@ -1,0 +1,742 @@
+---
+/**
+ * Componente DiagnosticoWizard.astro — Estilo Kage
+ * Motor interactivo por pasos integrado con el Banco Maestro de Preguntas v0.2
+ * Incluye estados de certeza, ramificaciones dinámicas, reglas de negocio y cálculo de niveles (SG-SST 1-3, PESV).
+ */
+---
+
+<div class="relative w-full max-w-4xl mx-auto" id="diagnostico-wizard-root">
+  <!-- Luces de fondo (Kage Glows) -->
+  <div class="pointer-events-none absolute -left-20 top-20 h-72 w-72 rounded-full bg-brand-cyan/15 blur-[120px]"></div>
+  <div class="pointer-events-none absolute -right-20 bottom-20 h-72 w-72 rounded-full bg-brand-yellow/10 blur-[120px]"></div>
+
+  <!-- Contenedor Glassmorphism Principal -->
+  <div class="relative z-10 rounded-2xl bg-white/[0.02] border border-white/[0.08] backdrop-blur-2xl p-6 sm:p-10 shadow-glow-card">
+    
+    <!-- HEADER DEL CUESTIONARIO: Barra de progreso, porcentaje y autoguardado -->
+    <header class="mb-8 pb-6 border-b border-white/[0.06]">
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+        <div>
+          <span class="inline-flex items-center gap-2 font-mono text-xs font-semibold px-2.5 py-1 rounded-md bg-brand-cyan/10 border border-brand-cyan/20 text-brand-cyan uppercase tracking-wider">
+            <span class="h-1.5 w-1.5 rounded-full bg-brand-cyan animate-pulse"></span>
+            <span id="wizard-stage-label">Paso 1: Caracterización</span>
+          </span>
+          <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-white mt-2" id="wizard-step-title">
+            Datos Generales de la Empresa
+          </h2>
+        </div>
+
+        <!-- Indicador de porcentaje y autoguardado -->
+        <div class="flex items-center gap-4 text-right">
+          <div class="flex items-center gap-1.5 text-xs text-emerald-400 font-mono bg-emerald-500/10 border border-emerald-500/20 px-2 py-1 rounded">
+            <svg class="w-3 h-3 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+            </svg>
+            <span class="hidden sm:inline">Guardado en tiempo real</span>
+          </div>
+          <div class="font-mono text-sm font-bold text-brand-yellow" id="wizard-percent-text">
+            0%
+          </div>
+        </div>
+      </div>
+
+      <!-- Barra de progreso -->
+      <div class="w-full bg-white/[0.05] h-1.5 rounded-full overflow-hidden">
+        <div
+          id="wizard-progress-bar"
+          class="h-full bg-gradient-to-r from-brand-blue via-brand-cyan to-brand-yellow transition-all duration-300 ease-out"
+          style="width: 0%;"
+        ></div>
+      </div>
+    </header>
+
+    <!-- CUERPO DEL ASISTENTE: Pantallas progresivas -->
+    <div id="wizard-body">
+
+      <!-- PASO 1: Datos de la empresa -->
+      <div class="wizard-step active" data-step="1">
+        <p class="text-sm text-slate-400 mb-6">
+          Ingresa los datos básicos para contextualizar las obligaciones legales y normativas aplicables en Colombia.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-6">
+          <div>
+            <label class="block font-mono text-xs uppercase tracking-wider text-slate-300 mb-2">Nombre de la Empresa *</label>
+            <input type="text" id="input-empresa" placeholder="Ej: Industria Andina S.A.S." class="w-full rounded-xl bg-black/40 border border-white/10 px-4 py-3 text-sm text-white placeholder-slate-500 focus:border-brand-yellow focus:outline-none focus:ring-1 focus:ring-brand-yellow transition-all" />
+          </div>
+
+          <div>
+            <label class="block font-mono text-xs uppercase tracking-wider text-slate-300 mb-2">NIT o Identificación *</label>
+            <input type="text" id="input-nit" placeholder="900.123.456-7" class="w-full rounded-xl bg-black/40 border border-white/10 px-4 py-3 text-sm text-white placeholder-slate-500 focus:border-brand-yellow focus:outline-none focus:ring-1 focus:ring-brand-yellow transition-all" />
+          </div>
+
+          <div>
+            <label class="block font-mono text-xs uppercase tracking-wider text-slate-300 mb-2">Ciudad o Sede Principal *</label>
+            <input type="text" id="input-ciudad" placeholder="Ej: Bogotá D.C." class="w-full rounded-xl bg-black/40 border border-white/10 px-4 py-3 text-sm text-white placeholder-slate-500 focus:border-brand-yellow focus:outline-none focus:ring-1 focus:ring-brand-yellow transition-all" />
+          </div>
+
+          <div>
+            <label class="block font-mono text-xs uppercase tracking-wider text-slate-300 mb-2">Tu Rol en la Empresa (P1) *</label>
+            <select id="input-rol" class="w-full rounded-xl bg-black/40 border border-white/10 px-4 py-3 text-sm text-white focus:border-brand-yellow focus:outline-none focus:ring-1 focus:ring-brand-yellow transition-all">
+              <option value="">Selecciona tu rol...</option>
+              <option value="gerencia">Gerente general / Director / Propietario</option>
+              <option value="administracion">Líder administrativo / Operaciones</option>
+              <option value="sst_talento">Responsable de Talento Humano o SST</option>
+              <option value="operativo">Supervisor / Líder de planta o cuadrilla</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-mono text-xs uppercase tracking-wider text-slate-300 mb-2">Actividad Económica Principal (P2) *</label>
+          <select id="input-actividad" class="w-full rounded-xl bg-black/40 border border-white/10 px-4 py-3 text-sm text-white focus:border-brand-yellow focus:outline-none focus:ring-1 focus:ring-brand-yellow transition-all">
+            <option value="">Selecciona el sector económico...</option>
+            <option value="comercio_servicios">Comercio al por menor / mayor o servicios profesionales</option>
+            <option value="manufactura_taller">Industria manufacturera, taller o producción</option>
+            <option value="construccion_obras">Construcción, obras civiles, montajes o instalaciones</option>
+            <option value="alimentos_restaurantes">Alimentos, restaurantes o gastronomía</option>
+            <option value="transporte_logistica">Transporte de carga / pasajeros o logística</option>
+            <option value="salud_asistencial">Salud, laboratorios o estética</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- PASO 2: Tamaño, Riesgo y Flota -->
+      <div class="wizard-step hidden" data-step="2">
+        <p class="text-sm text-slate-400 mb-6">
+          Estos datos determinan los estándares mínimos del SG-SST (Res. 0312/2019) y la obligatoriedad del Plan Estratégico de Seguridad Vial (Res. 40595/2022).
+        </p>
+
+        <div class="space-y-6">
+          <!-- Número de trabajadores -->
+          <div>
+            <label class="block font-mono text-xs uppercase tracking-wider text-slate-300 mb-3">
+              Número total de trabajadores (P4: Directos y Terceros) *
+            </label>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3" id="select-trabajadores">
+              <button type="button" data-val="1_a_10" class="btn-option p-4 rounded-xl bg-white/[0.02] border border-white/10 text-left hover:border-brand-yellow/40 transition-all">
+                <span class="block font-bold text-white text-base">Hasta 10 personas</span>
+                <span class="block text-xs text-slate-400 mt-1 font-mono">Microempresa (7 estándares)</span>
+              </button>
+              <button type="button" data-val="11_a_50" class="btn-option p-4 rounded-xl bg-white/[0.02] border border-white/10 text-left hover:border-brand-yellow/40 transition-all">
+                <span class="block font-bold text-white text-base">11 a 50 personas</span>
+                <span class="block text-xs text-slate-400 mt-1 font-mono">Pequeña empresa (21 estándares)</span>
+              </button>
+              <button type="button" data-val="mas_de_50" class="btn-option p-4 rounded-xl bg-white/[0.02] border border-white/10 text-left hover:border-brand-yellow/40 transition-all">
+                <span class="block font-bold text-white text-base">Más de 50 personas</span>
+                <span class="block text-xs text-slate-400 mt-1 font-mono">Mediana / 60 estándares</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Clase de riesgo ARL -->
+          <div>
+            <label class="block font-mono text-xs uppercase tracking-wider text-slate-300 mb-3">
+              Clase de Riesgo ARL principal de tu empresa *
+            </label>
+            <div class="grid grid-cols-2 sm:grid-cols-6 gap-2" id="select-riesgo">
+              {['I', 'II', 'III', 'IV', 'V'].map((r) => (
+                <button type="button" data-val={r} class="btn-option p-3 rounded-xl bg-white/[0.02] border border-white/10 text-center hover:border-brand-yellow/40 transition-all">
+                  <span class="block font-bold text-white text-sm">Clase {r}</span>
+                </button>
+              ))}
+              <button type="button" data-val="NO_SE" class="btn-option p-3 rounded-xl bg-white/[0.02] border border-white/10 text-center hover:border-brand-cyan/40 transition-all">
+                <span class="block font-semibold text-brand-cyan text-xs">No sé / Por verificar</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Movilidad y Flota (P6) -->
+          <div>
+            <label class="block font-mono text-xs uppercase tracking-wider text-slate-300 mb-3">
+              Uso de vehículos o motocicletas en el trabajo (P6) *
+            </label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="select-flota">
+              <label class="flex items-start gap-3 p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-brand-yellow/30 cursor-pointer">
+                <input type="checkbox" value="flota_propia" class="mt-1 accent-brand-yellow" />
+                <div>
+                  <span class="block text-sm font-semibold text-white">Vehículos propios o en arriendo</span>
+                  <span class="block text-xs text-slate-400">Camionetas, furgones, automóviles de la empresa</span>
+                </div>
+              </label>
+
+              <label class="flex items-start gap-3 p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-brand-yellow/30 cursor-pointer">
+                <input type="checkbox" value="motos_mensajeria" class="mt-1 accent-brand-yellow" />
+                <div>
+                  <span class="block text-sm font-semibold text-white">Motocicletas para domicilios o visitas</span>
+                  <span class="block text-xs text-slate-400">Mensajería, supervisión o técnicos en moto</span>
+                </div>
+              </label>
+
+              <label class="flex items-start gap-3 p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-brand-yellow/30 cursor-pointer">
+                <input type="checkbox" value="vehiculo_trabajador" class="mt-1 accent-brand-yellow" />
+                <div>
+                  <span class="block text-sm font-semibold text-white">Trabajadores con vehículo propio (rodamiento)</span>
+                  <span class="block text-xs text-slate-400">Uso laboral del vehículo particular</span>
+                </div>
+              </label>
+
+              <label class="flex items-start gap-3 p-3.5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-brand-yellow/30 cursor-pointer">
+                <input type="checkbox" value="ninguno_movilidad" class="mt-1 accent-brand-yellow" />
+                <div>
+                  <span class="block text-sm font-semibold text-white">No se usan vehículos en la operación</span>
+                  <span class="block text-xs text-slate-400">Labores sin transporte laboral vinculado</span>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PASO 3: Tareas críticas y aspectos ambientales -->
+      <div class="wizard-step hidden" data-step="3">
+        <p class="text-sm text-slate-400 mb-6">
+          Identifica si tu empresa realiza tareas de alta exposición o genera impactos ambientales que activen obligaciones específicas.
+        </p>
+
+        <div class="space-y-6">
+          <div>
+            <label class="block font-mono text-xs uppercase tracking-wider text-slate-300 mb-3">
+              Tareas cotidianas en la empresa (P3) *
+            </label>
+            <div class="space-y-2.5" id="select-tareas">
+              <label class="flex items-center gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/10 hover:border-brand-yellow/30 cursor-pointer">
+                <input type="checkbox" value="alturas" class="accent-brand-yellow" />
+                <span class="text-sm text-white">Trabajo en alturas (> 2.0 m, escaleras, andamios o cubiertas)</span>
+              </label>
+              <label class="flex items-center gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/10 hover:border-brand-yellow/30 cursor-pointer">
+                <input type="checkbox" value="quimicos" class="accent-brand-yellow" />
+                <span class="text-sm text-white">Uso de sustancias químicas, pinturas, solventes o combustibles</span>
+              </label>
+              <label class="flex items-center gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/10 hover:border-brand-yellow/30 cursor-pointer">
+                <input type="checkbox" value="maquinaria_pesada" class="accent-brand-yellow" />
+                <span class="text-sm text-white">Operación de montacargas, maquinaria pesada o herramientas cortantes</span>
+              </label>
+              <label class="flex items-center gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/10 hover:border-brand-yellow/30 cursor-pointer">
+                <input type="checkbox" value="ninguna_riesgo_critico" class="accent-brand-yellow" />
+                <span class="text-sm text-white">Solo labores de oficina / administrativas sin riesgos de alta severidad</span>
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-mono text-xs uppercase tracking-wider text-slate-300 mb-3">
+              Aspectos ambientales generados (P7) *
+            </label>
+            <div class="space-y-2.5" id="select-ambiental">
+              <label class="flex items-center gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/10 hover:border-brand-yellow/30 cursor-pointer">
+                <input type="checkbox" value="residuos_peligrosos" class="accent-brand-yellow" />
+                <span class="text-sm text-white">Generación de residuos peligrosos (aceites, baterías, empaques químicos)</span>
+              </label>
+              <label class="flex items-center gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/10 hover:border-brand-yellow/30 cursor-pointer">
+                <input type="checkbox" value="vertimientos_aguas" class="accent-brand-yellow" />
+                <span class="text-sm text-white">Vertimientos de aguas residuales industriales o lavado de equipos</span>
+              </label>
+              <label class="flex items-center gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/10 hover:border-brand-yellow/30 cursor-pointer">
+                <input type="checkbox" value="ninguno_ambiental" class="accent-brand-yellow" />
+                <span class="text-sm text-white">Solo residuos ordinarios asimilables a domésticos (papel, cartón)</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PASO 4: Cuestionario dinámico (Banco Maestro v0.2) -->
+      <div class="wizard-step hidden" data-step="4">
+        <div id="dynamic-question-view">
+          <!-- Renderizado dinámico de la pregunta activa -->
+        </div>
+      </div>
+
+      <!-- PASO FINAL: Resultados descriptivos y Recomendación de Servicios -->
+      <div class="wizard-step hidden" data-step="5">
+        <div class="text-center mb-8">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-mono text-xs uppercase mb-3">
+            <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
+            Autoevaluación Completada
+          </div>
+          <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+            Diagnóstico Técnico y Recomendaciones FOSST
+          </h3>
+          <p class="text-sm text-slate-400 mt-2 max-w-xl mx-auto">
+            Basado en las reglas de negocio del portafolio 2026 y la Resolución 0312 de 2019 de Colombia.
+          </p>
+        </div>
+
+        <!-- Tarjetas de servicios recomendados según reglas -->
+        <div class="mb-8">
+          <h4 class="font-mono text-xs uppercase tracking-wider text-slate-300 mb-4">
+            Servicios sugeridos prioritarios para tu empresa:
+          </h4>
+          <div id="results-services-list" class="space-y-4">
+            <!-- Inyectado por JS -->
+          </div>
+        </div>
+
+        <!-- Señales de atención y aspectos por verificar -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+          <div class="p-5 rounded-xl bg-white/[0.02] border border-white/[0.08]">
+            <h5 class="text-sm font-bold text-white mb-3 flex items-center gap-2">
+              <span class="h-2 w-2 rounded-full bg-amber-400"></span>
+              Señales de atención prioritarias
+            </h5>
+            <div id="results-signals" class="text-xs text-slate-300 space-y-2">
+              <!-- Inyectado por JS -->
+            </div>
+          </div>
+
+          <div class="p-5 rounded-xl bg-white/[0.02] border border-white/[0.08]">
+            <h5 class="text-sm font-bold text-white mb-3 flex items-center gap-2">
+              <span class="h-2 w-2 rounded-full bg-brand-cyan"></span>
+              Aspectos para verificar documentalmente
+            </h5>
+            <div id="results-pending" class="text-xs text-slate-300 space-y-2">
+              <!-- Inyectado por JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Lead Capture & Agendamiento con Habeas Data -->
+        <div class="p-6 rounded-2xl bg-brand-blue/15 border border-brand-blue/30 backdrop-blur-xl">
+          <h4 class="text-base font-bold text-white mb-2">
+            Agenda tu sesión técnica de retroalimentación
+          </h4>
+          <p class="text-xs text-slate-300 mb-5">
+            Recibe el reporte técnico formal en tu correo y agenda una llamada de 30 minutos con un consultor de FOSST.
+          </p>
+
+          <form id="lead-form" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <input type="text" id="lead-nombre" placeholder="Nombre completo" required class="w-full rounded-xl bg-black/50 border border-white/10 px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:border-brand-yellow focus:outline-none" />
+              <input type="email" id="lead-email" placeholder="Correo electrónico corporativo" required class="w-full rounded-xl bg-black/50 border border-white/10 px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:border-brand-yellow focus:outline-none" />
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <input type="tel" id="lead-telefono" placeholder="Número de WhatsApp (ej: 320 000 0000)" required class="w-full rounded-xl bg-black/50 border border-white/10 px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:border-brand-yellow focus:outline-none" />
+              <input type="text" id="lead-cargo" placeholder="Cargo en la empresa" required class="w-full rounded-xl bg-black/50 border border-white/10 px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:border-brand-yellow focus:outline-none" />
+            </div>
+
+            <!-- Casilla obligatoria Habeas Data Ley 1581 de 2012 -->
+            <label class="flex items-start gap-2.5 text-xs text-slate-400 cursor-pointer pt-2">
+              <input type="checkbox" id="lead-habeas-data" required class="mt-0.5 accent-brand-yellow" />
+              <span>
+                Autorizo el tratamiento de mis datos personales a FOSST conforme a la Ley 1581 de 2012 y la <a href="/legal/privacidad" target="_blank" class="text-brand-yellow underline">Política de Privacidad</a> para recibir el reporte y ser contactado.
+              </span>
+            </label>
+
+            <div class="flex flex-wrap items-center gap-3 pt-3">
+              <button type="submit" class="btn-primary w-full sm:w-auto">
+                Agendar mi sesión de acompañamiento
+              </button>
+              <a href="https://wa.me/573203865953" target="_blank" rel="noopener noreferrer" class="btn-secondary w-full sm:w-auto text-xs">
+                Consultar por WhatsApp
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CONTROLES INFERIORES DEL ASISTENTE -->
+    <footer class="mt-8 pt-6 border-t border-white/[0.06] flex items-center justify-between" id="wizard-footer">
+      <button type="button" id="btn-wizard-prev" class="btn-secondary text-xs" style="display: none;">
+        ← Anterior
+      </button>
+      <div id="wizard-error-msg" class="text-xs text-rose-400 font-medium hidden">
+        Por favor completa los campos obligatorios para avanzar.
+      </div>
+      <button type="button" id="btn-wizard-next" class="btn-primary text-xs ml-auto">
+        Continuar →
+      </button>
+    </footer>
+
+  </div>
+</div>
+
+<style>
+  .btn-option.selected {
+    border-color: #FFC800 !important;
+    background: rgba(255, 200, 0, 0.08) !important;
+    box-shadow: 0 0 20px rgba(255, 200, 0, 0.15);
+  }
+</style>
+
+<script>
+  import { BANCO_PREGUNTAS } from '../lib/diagnostico/banco.js';
+  import { getPreguntasAplicables, limpiarRespuestasIncompatibles, generarReporteDiagnostico } from '../lib/diagnostico/engine.js';
+
+  // Estado del Wizard
+  let currentStep = 1;
+  const totalSteps = 5;
+  let dynamicIndex = 0;
+  let dynamicQuestions = [];
+  
+  // Respuestas del usuario
+  let formData = {
+    P1: '',
+    P2: '',
+    P3: [],
+    P4: '',
+    riesgo: '',
+    P6: [],
+    P7: [],
+    ciudad: '',
+    empresa: '',
+    nit: '',
+  };
+
+  // Referencias DOM
+  const progressBar = document.getElementById('wizard-progress-bar');
+  const percentText = document.getElementById('wizard-percent-text');
+  const stageLabel = document.getElementById('wizard-stage-label');
+  const stepTitle = document.getElementById('wizard-step-title');
+  const btnPrev = document.getElementById('btn-wizard-prev');
+  const btnNext = document.getElementById('btn-wizard-next');
+  const errorMsg = document.getElementById('wizard-error-msg');
+  const dynamicView = document.getElementById('dynamic-question-view');
+  const footerEl = document.getElementById('wizard-footer');
+
+  // Inicializar selección única por botones
+  function setupOptionGroup(containerId, dataField) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    const buttons = container.querySelectorAll('.btn-option');
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        buttons.forEach((b) => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        formData[dataField] = btn.getAttribute('data-val');
+        saveToLocalStorage();
+      });
+    });
+  }
+
+  setupOptionGroup('select-trabajadores', 'P4');
+  setupOptionGroup('select-riesgo', 'riesgo');
+
+  // Inicializar selección múltiple
+  function setupCheckboxGroup(containerId, dataField) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    const checkboxes = container.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach((cb) => {
+      cb.addEventListener('change', () => {
+        const checkedVals = Array.from(checkboxes)
+          .filter((c) => c.checked)
+          .map((c) => c.value);
+        formData[dataField] = checkedVals;
+        saveToLocalStorage();
+      });
+    });
+  }
+
+  setupCheckboxGroup('select-flota', 'P6');
+  setupCheckboxGroup('select-tareas', 'P3');
+  setupCheckboxGroup('select-ambiental', 'P7');
+
+  // Guardado en tiempo real en localStorage
+  function saveToLocalStorage() {
+    try {
+      localStorage.setItem('fosst_wizard_data', JSON.stringify(formData));
+    } catch {}
+  }
+
+  function updateProgress() {
+    let progress = 0;
+    if (currentStep === 1) progress = 15;
+    else if (currentStep === 2) progress = 35;
+    else if (currentStep === 3) progress = 55;
+    else if (currentStep === 4) {
+      const qProgress = dynamicQuestions.length > 0 ? (dynamicIndex / dynamicQuestions.length) * 35 : 0;
+      progress = 55 + Math.round(qProgress);
+    } else if (currentStep === 5) {
+      progress = 100;
+    }
+
+    if (progressBar) progressBar.style.width = `${progress}%`;
+    if (percentText) percentText.textContent = `${progress}%`;
+  }
+
+  function renderCurrentStep() {
+    errorMsg.classList.add('hidden');
+    document.querySelectorAll('.wizard-step').forEach((el) => el.classList.add('hidden'));
+
+    const stepEl = document.querySelector(`.wizard-step[data-step="${currentStep}"]`);
+    if (stepEl) stepEl.classList.remove('hidden');
+
+    if (currentStep === 1) {
+      stageLabel.textContent = 'Paso 1: Caracterización';
+      stepTitle.textContent = 'Datos Generales de la Empresa';
+      btnPrev.style.display = 'none';
+      btnNext.style.display = 'inline-flex';
+      btnNext.textContent = 'Continuar →';
+    } else if (currentStep === 2) {
+      stageLabel.textContent = 'Paso 2: Operación y Tamaño';
+      stepTitle.textContent = 'Tamaño, Riesgo y Movilidad';
+      btnPrev.style.display = 'inline-flex';
+      btnNext.style.display = 'inline-flex';
+      btnNext.textContent = 'Continuar →';
+    } else if (currentStep === 3) {
+      stageLabel.textContent = 'Paso 3: Peligros y Ambiente';
+      stepTitle.textContent = 'Tareas Críticas e Impacto Ambiental';
+      btnPrev.style.display = 'inline-flex';
+      btnNext.style.display = 'inline-flex';
+      btnNext.textContent = 'Iniciar preguntas dinámicas →';
+    } else if (currentStep === 4) {
+      stageLabel.textContent = `Paso 4: Evaluación Técnica (${dynamicIndex + 1}/${dynamicQuestions.length})`;
+      stepTitle.textContent = dynamicQuestions[dynamicIndex]?.dimension || 'Preguntas de Control';
+      btnPrev.style.display = 'inline-flex';
+      btnNext.style.display = 'inline-flex';
+      btnNext.textContent = dynamicIndex === dynamicQuestions.length - 1 ? 'Generar Resultados →' : 'Siguiente Pregunta →';
+      renderDynamicQuestion();
+    } else if (currentStep === 5) {
+      stageLabel.textContent = 'Paso 5: Resultados';
+      stepTitle.textContent = 'Diagnóstico y Recomendaciones FOSST';
+      btnPrev.style.display = 'none';
+      btnNext.style.display = 'none';
+      renderResults();
+    }
+
+    updateProgress();
+    window.scrollTo({ top: document.getElementById('diagnostico-wizard-root').offsetTop - 100, behavior: 'smooth' });
+  }
+
+  function validateStep(step) {
+    if (step === 1) {
+      formData.empresa = document.getElementById('input-empresa')?.value.trim();
+      formData.nit = document.getElementById('input-nit')?.value.trim();
+      formData.ciudad = document.getElementById('input-ciudad')?.value.trim();
+      formData.P1 = document.getElementById('input-rol')?.value;
+      formData.P2 = document.getElementById('input-actividad')?.value;
+
+      return Boolean(formData.empresa && formData.nit && formData.ciudad && formData.P1 && formData.P2);
+    }
+    if (step === 2) {
+      return Boolean(formData.P4 && formData.riesgo && formData.P6.length > 0);
+    }
+    if (step === 3) {
+      return Boolean(formData.P3.length > 0 && formData.P7.length > 0);
+    }
+    if (step === 4) {
+      const q = dynamicQuestions[dynamicIndex];
+      const val = formData[q.id];
+      if (q.tipo === 'seleccion_multiple') {
+        return Array.isArray(val) && val.length > 0;
+      }
+      return Boolean(val);
+    }
+    return true;
+  }
+
+  function renderDynamicQuestion() {
+    const q = dynamicQuestions[dynamicIndex];
+    if (!q) return;
+
+    const val = formData[q.id];
+
+    dynamicView.innerHTML = `
+      <div class="mb-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="font-mono text-xs px-2 py-0.5 rounded bg-white/10 text-brand-cyan border border-white/10">${q.id}</span>
+          <span class="font-mono text-xs text-slate-400 uppercase tracking-wider">${q.dimension}</span>
+        </div>
+        <h4 class="text-lg sm:text-xl font-bold text-white mb-2">${q.pregunta}</h4>
+        <p class="text-xs text-slate-400">Selecciona la opción más cercana a la realidad o indica tu nivel de certeza.</p>
+      </div>
+
+      <div class="space-y-2.5 mb-6" id="dynamic-options-box">
+        ${q.opciones.map((opt) => {
+          const isSelected = q.tipo === 'seleccion_multiple'
+            ? Array.isArray(val) && val.includes(opt.id)
+            : val === opt.id;
+          return `
+            <div data-opt-id="${opt.id}" class="dynamic-opt p-3.5 rounded-xl bg-white/[0.02] border ${isSelected ? 'border-brand-yellow bg-brand-yellow/10' : 'border-white/10'} hover:border-brand-yellow/30 cursor-pointer transition-all flex items-center justify-between">
+              <span class="text-sm ${isSelected ? 'text-white font-semibold' : 'text-slate-300'}">${opt.label}</span>
+              <span class="w-4 h-4 rounded-full border border-white/20 flex items-center justify-center ${isSelected ? 'border-brand-yellow bg-brand-yellow' : ''}">
+                ${isSelected ? '<span class="w-1.5 h-1.5 rounded-full bg-black"></span>' : ''}
+              </span>
+            </div>
+          `;
+        }).join('')}
+      </div>
+
+      <!-- Estados de Certeza explícitos según banco v0.2 -->
+      <div class="p-3 rounded-xl bg-black/40 border border-white/5 flex flex-wrap items-center gap-2">
+        <span class="font-mono text-[11px] text-slate-400 uppercase mr-1">Estados de certeza:</span>
+        <button type="button" data-certainty="necesito_verificar" class="btn-cert text-[11px] font-mono px-2 py-1 rounded bg-white/[0.04] text-brand-cyan hover:bg-brand-cyan/20 border border-brand-cyan/20 transition-all">
+          ? Necesito verificarlo
+        </button>
+        <button type="button" data-certainty="no_se_conoce" class="btn-cert text-[11px] font-mono px-2 py-1 rounded bg-white/[0.04] text-slate-400 hover:bg-white/10 border border-white/10 transition-all">
+          ✕ No sé / No se conoce
+        </button>
+        <button type="button" data-certainty="practica_informal" class="btn-cert text-[11px] font-mono px-2 py-1 rounded bg-white/[0.04] text-amber-300 hover:bg-amber-400/20 border border-amber-400/20 transition-all">
+          ⚡ Práctica informal
+        </button>
+      </div>
+    `;
+
+    // Interacción de opciones
+    dynamicView.querySelectorAll('.dynamic-opt').forEach((optEl) => {
+      optEl.addEventListener('click', () => {
+        const optId = optEl.getAttribute('data-opt-id');
+        if (q.tipo === 'seleccion_multiple') {
+          let curr = Array.isArray(formData[q.id]) ? [...formData[q.id]] : [];
+          if (curr.includes(optId)) {
+            curr = curr.filter((x) => x !== optId);
+          } else {
+            curr.push(optId);
+          }
+          formData[q.id] = curr;
+        } else {
+          formData[q.id] = optId;
+        }
+        saveToLocalStorage();
+        renderDynamicQuestion();
+      });
+    });
+
+    // Botones de certeza
+    dynamicView.querySelectorAll('.btn-cert').forEach((certBtn) => {
+      certBtn.addEventListener('click', () => {
+        const cert = certBtn.getAttribute('data-certainty');
+        formData[q.id] = cert;
+        saveToLocalStorage();
+        renderDynamicQuestion();
+      });
+    });
+  }
+
+  // Navegación Siguiente
+  btnNext?.addEventListener('click', () => {
+    if (!validateStep(currentStep)) {
+      errorMsg.classList.remove('hidden');
+      return;
+    }
+
+    if (currentStep === 3) {
+      // Calcular preguntas dinámicas aplicables antes de pasar al paso 4
+      formData = limpiarRespuestasIncompatibles(formData);
+      const allApplicable = getPreguntasAplicables(formData);
+      // Filtrar las que no sean de contexto (P1 a P7 ya contestadas)
+      dynamicQuestions = allApplicable.filter((q) => !q.id.startsWith('P'));
+      dynamicIndex = 0;
+      currentStep = 4;
+    } else if (currentStep === 4) {
+      if (dynamicIndex < dynamicQuestions.length - 1) {
+        dynamicIndex++;
+      } else {
+        currentStep = 5;
+      }
+    } else {
+      currentStep++;
+    }
+
+    renderCurrentStep();
+  });
+
+  // Navegación Anterior
+  btnPrev?.addEventListener('click', () => {
+    if (currentStep === 4) {
+      if (dynamicIndex > 0) {
+        dynamicIndex--;
+      } else {
+        currentStep = 3;
+      }
+    } else if (currentStep > 1) {
+      currentStep--;
+    }
+    renderCurrentStep();
+  });
+
+  // REGLAS DE NEGOCIO Y RENDERIZADO DE RESULTADOS
+  function renderResults() {
+    const report = generarReporteDiagnostico(formData);
+
+    // Calcular recomendación de SGSST según Reglas 7.1
+    let sgsstLevel = 'Nivel 1 (7 Estándares Mínimos)';
+    let sgsstDesc = 'Diseñado para empresas de hasta 10 trabajadores en riesgo I, II o III.';
+    const isHighRisk = formData.riesgo === 'IV' || formData.riesgo === 'V';
+
+    if (formData.P4 === 'mas_de_50' || isHighRisk) {
+      sgsstLevel = 'Nivel 3 (60 Estándares Mínimos)';
+      sgsstDesc = 'Obligatorio para más de 50 trabajadores o empresas en clase de riesgo IV y V.';
+    } else if (formData.P4 === '11_a_50') {
+      sgsstLevel = 'Nivel 2 (21 Estándares Mínimos)';
+      sgsstDesc = 'Aplica a empresas entre 11 y 50 trabajadores con riesgo I, II o III.';
+    }
+
+    // Calcular recomendación de PESV según Reglas 7.2
+    const hasVehicles = formData.P6 && !formData.P6.includes('ninguno_movilidad') && formData.P6.length > 0;
+    let pesvRecommendation = null;
+    if (hasVehicles) {
+      pesvRecommendation = {
+        title: 'Plan Estratégico de Seguridad Vial (PESV)',
+        desc: 'Tu empresa opera vehículos o motocicletas laborales. Requiere estructuración bajo la Res. 40595 de 2022.'
+      };
+    }
+
+    // Lista de servicios sugeridos
+    const servicesListEl = document.getElementById('results-services-list');
+    let servicesHtml = `
+      <div class="p-4 rounded-xl bg-white/[0.03] border border-white/10 flex items-start gap-4">
+        <div class="p-2.5 rounded-lg bg-brand-yellow/10 text-brand-yellow font-bold text-sm">01</div>
+        <div>
+          <h5 class="text-base font-bold text-white">Diseño del SG-SST: ${sgsstLevel}</h5>
+          <p class="text-xs text-slate-300 mt-1">${sgsstDesc}</p>
+        </div>
+      </div>
+    `;
+
+    if (pesvRecommendation) {
+      servicesHtml += `
+        <div class="p-4 rounded-xl bg-white/[0.03] border border-white/10 flex items-start gap-4">
+          <div class="p-2.5 rounded-lg bg-brand-cyan/10 text-brand-cyan font-bold text-sm">07</div>
+          <div>
+            <h5 class="text-base font-bold text-white">${pesvRecommendation.title}</h5>
+            <p class="text-xs text-slate-300 mt-1">${pesvRecommendation.desc}</p>
+          </div>
+        </div>
+      `;
+    }
+
+    // Batería psicosocial si hay > 10 trabajadores
+    if (formData.P4 !== '1_a_10') {
+      servicesHtml += `
+        <div class="p-4 rounded-xl bg-white/[0.03] border border-white/10 flex items-start gap-4">
+          <div class="p-2.5 rounded-lg bg-brand-blue/20 text-sky-400 font-bold text-sm">02</div>
+          <div>
+            <h5 class="text-base font-bold text-white">Batería de Riesgo Psicosocial</h5>
+            <p class="text-xs text-slate-300 mt-1">Obligatoria conforme a la Resolución 2764 de 2022 con psicólogo especialista con licencia vigente.</p>
+          </div>
+        </div>
+      `;
+    }
+
+    if (servicesListEl) servicesListEl.innerHTML = servicesHtml;
+
+    // Señales
+    const signalsEl = document.getElementById('results-signals');
+    if (signalsEl) {
+      signalsEl.innerHTML = report.senalesAtencion.length > 0
+        ? report.senalesAtencion.map((s) => `<div class="p-2 rounded bg-amber-500/10 text-amber-200"><strong>${s.dimension}:</strong> ${s.mensaje}</div>`).join('')
+        : '<p class="text-slate-400">No se detectaron alertas críticas evidentes en lo declarado.</p>';
+    }
+
+    // Pendientes por verificar
+    const pendingEl = document.getElementById('results-pending');
+    if (pendingEl) {
+      pendingEl.innerHTML = report.pendientesVerificar.length > 0
+        ? report.pendientesVerificar.map((p) => `<div class="p-2 rounded bg-sky-500/10 text-sky-200"><strong>${p.id}:</strong> ${p.asunto}</div>`).join('')
+        : '<p class="text-slate-400">No se declararon respuestas bajo duda o incertidumbre.</p>';
+    }
+  }
+
+  // Manejo de envío de Lead Form
+  document.getElementById('lead-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    alert('¡Excelente! Tus respuestas y solicitud han sido registradas. Un consultor de FOSST se comunicará contigo para remitirte el reporte detallado.');
+    window.location.href = '/agendar/confirmacion';
+  });
+</script>

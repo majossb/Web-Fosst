@@ -1,0 +1,72 @@
+---
+/**
+ * Metodología de trabajo FOSST — Estilo Kage
+ * 3 etapas estructuradas con líneas técnicas y glassmorphism
+ */
+const steps = [
+  {
+    num: '01',
+    title: 'Diagnóstico y evaluación inicial',
+    body: 'Evaluamos tu actividad económica, nivel de riesgo ARL, número de trabajadores y tipo de vinculación para identificar brechas de cumplimiento frente a la normatividad vigente.',
+    tag: 'FASE 1 · AUDITORÍA'
+  },
+  {
+    num: '02',
+    title: 'Priorización y planificación técnica',
+    body: 'Definimos un cronograma de intervención basado en urgencia legal, capacidad operativa y presupuesto disponible. Cada acción tiene responsable, plazo y entregable medible.',
+    tag: 'FASE 2 · PLAN DE ACCIÓN'
+  },
+  {
+    num: '03',
+    title: 'Implementación, acompañamiento y seguimiento',
+    body: 'Diseñamos documentación, capacitamos al equipo, ejecutamos controles y medimos resultados periódicamente para mantener el cumplimiento en el tiempo.',
+    tag: 'FASE 3 · BLINDAJE CONTINUO'
+  },
+];
+---
+
+<section class="relative py-24 bg-dark-base border-t border-white/[0.06] overflow-hidden" id="metodologia">
+  <div class="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-2xl mx-auto text-center mb-16 scroll-reveal">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] backdrop-blur-md mb-4">
+        <span class="h-1.5 w-1.5 rounded-full bg-brand-cyan"></span>
+        <span class="font-mono text-xs uppercase tracking-widest text-brand-cyan font-semibold">
+          Proceso de Trabajo
+        </span>
+      </div>
+      <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-4">
+        Del Riesgo al Orden en Tres Etapas
+      </h2>
+      <p class="text-base md:text-lg text-slate-400 leading-relaxed text-balance">
+        Un recorrido paso a paso para organizar los procesos y brindar tranquilidad jurídica y operativa a la dirección de tu empresa.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 scroll-reveal">
+      {steps.map((s) => (
+        <div class="p-8 rounded-2xl bg-white/[0.02] border border-white/[0.08] backdrop-blur-xl hover:border-brand-cyan/40 hover:shadow-glow-cyan transition-all duration-300 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <span class="font-mono text-3xl font-extrabold text-white">
+                {s.num}
+              </span>
+              <span class="font-mono text-[11px] text-slate-400 bg-white/[0.03] border border-white/10 px-2.5 py-1 rounded">
+                {s.tag}
+              </span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3 tracking-tight">
+              {s.title}
+            </h3>
+            <p class="text-sm leading-relaxed text-slate-400">
+              {s.body}
+            </p>
+          </div>
+
+          <div class="mt-8 pt-4 border-t border-white/[0.06] flex items-center gap-2 text-xs font-mono text-brand-cyan">
+            <span>✓ Entregables verificables</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

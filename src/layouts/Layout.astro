@@ -1,0 +1,140 @@
+---
+/**
+ * Layout principal de FOSST Consultoría Integral — Estilo Kage
+ * Cumplimiento de accesibilidad, SEO, Open Graph y renderizado optimizado Astro
+ */
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppFab from '../components/WhatsAppFab.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalUrl?: string;
+  ogImage?: string;
+}
+
+const {
+  title = 'FOSST | Consultoría en Seguridad y Salud en el Trabajo para Mipymes en Colombia',
+  description = 'Protege a tu equipo y fortalece el cumplimiento normativo. Consultoría en SG-SST, seguridad vial, gestión ambiental y asesoría laboral para mipymes en Colombia.',
+  canonicalUrl = Astro.url.href,
+  ogImage = '/brand/og-fosst.png'
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
+
+const schemaData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://fosst.co/#organization",
+      "name": "FOSST Consultoría Integral",
+      "url": "https://fosst.co",
+      "logo": "https://fosst.co/brand/logo.svg",
+      "description": "Consultora colombiana de gestión integral de riesgos laborales, seguridad vial, ambiental y bienestar para mipymes.",
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "telephone": "+57-320-386-5953",
+          "contactType": "customer service",
+          "areaServed": "CO",
+          "availableLanguage": "Spanish"
+        }
+      ]
+    },
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://fosst.co/#localbusiness",
+      "name": "FOSST Consultoría Integral",
+      "url": "https://fosst.co",
+      "telephone": "+57-320-386-5953",
+      "email": "andreacortes.fosst@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "CO",
+        "addressLocality": "Bogotá D.C."
+      },
+      "priceRange": "$$"
+    }
+  ]
+};
+---
+
+<!doctype html>
+<html lang="es" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M8 26 C8 14 18 5 36 5 C52 5 60 14 62 26 L64 28 C64 30 58 31 52 31 L12 31 C6 31 2 30 2 28 Z' fill='%23FFC800'/%3E%3Cpath d='M14 32 C14 44 22 52 32 54 L30 62 L42 62 C48 56 50 50 50 44 C50 40 46 36 44 32 Z' fill='%23F7F7F2'/%3E%3C/svg%3E" />
+    
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    
+    <!-- Open Graph & Twitter -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    
+    <!-- Tipografías Manrope y JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Marcado estructurado Schema.org -->
+    <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+  </head>
+  <body class="bg-dark-base text-slate-200 antialiased selection:bg-brand-yellow selection:text-black min-h-screen relative overflow-x-hidden">
+    <!-- Enlace accesible Saltar al contenido -->
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+    <!-- Header en isla fluida Kage -->
+    <Header currentPath={currentPath} />
+
+    <!-- Contenido principal -->
+    <main id="main-content" class="relative z-10">
+      <slot />
+    </main>
+
+    <!-- Pie de página y contacto flotante -->
+    <Footer />
+    <WhatsAppFab />
+
+    <!-- Script de revelación por IntersectionObserver -->
+    <script>
+      function initScrollReveals() {
+        const reveals = document.querySelectorAll('.scroll-reveal');
+        if (!('IntersectionObserver' in window)) {
+          reveals.forEach(el => el.classList.add('is-visible'));
+          return;
+        }
+
+        const observer = new IntersectionObserver((entries, obs) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              obs.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.12,
+          rootMargin: '0px 0px -40px 0px'
+        });
+
+        reveals.forEach(el => observer.observe(el));
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initScrollReveals);
+      } else {
+        initScrollReveals();
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,310 @@
+---
+/**
+ * Página individual de servicio — Astro getStaticPaths
+ */
+import Layout from '../../layouts/Layout.astro';
+import { SERVICIOS } from '../../data/servicios.js';
+
+export function getStaticPaths() {
+  return SERVICIOS.map((servicio) => ({
+    params: { slug: servicio.slug },
+    props: { servicio },
+  }));
+}
+
+const { servicio } = Astro.props;
+---
+
+<Layout
+  title={`${servicio.nombre} | FOSST Consultoría Integral`}
+  description={servicio.descripcionCorta}
+>
+  <div class="service-detail-wrapper">
+    <div class="container">
+      
+      <!-- Navegación migas de pan -->
+      <nav class="breadcrumb" aria-label="Ruta de navegación">
+        <a href="/">Inicio</a>
+        <span>/</span>
+        <a href="/servicios">Servicios</a>
+        <span>/</span>
+        <span aria-current="page">{servicio.nombre}</span>
+      </nav>
+
+      <!-- Hero del servicio -->
+      <header class="service-detail-header scroll-reveal">
+        <span class="service-cat-badge">Servicio especializado FOSST</span>
+        <h1>{servicio.nombre}</h1>
+        <p class="service-lead">{servicio.descripcionCorta}</p>
+        <div class="header-cta-group">
+          <a href="/diagnostico" class="btn-primary">
+            Hacer diagnóstico para este servicio
+          </a>
+          <a href="/agendar" class="btn-outline-dark">
+            Agendar asesoría
+          </a>
+        </div>
+      </header>
+
+      <div class="detail-grid">
+        <!-- Contenido principal -->
+        <div class="detail-main">
+          
+          <!-- A quién va dirigido -->
+          <section class="detail-block scroll-reveal">
+            <h2>A quién va dirigido</h2>
+            <p>{servicio.dirigidoA}</p>
+          </section>
+
+          <!-- Qué incluye / alcance -->
+          <section class="detail-block scroll-reveal">
+            <h2>Alcance y actividades incluidas</h2>
+            <ul class="scope-list">
+              {servicio.alcance.map((item) => (
+                <li>
+                  <span class="check-icon" aria-hidden="true">✓</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <!-- Beneficios -->
+          <section class="detail-block scroll-reveal">
+            <h2>Beneficios para tu empresa</h2>
+            <div class="benefits-boxes">
+              {servicio.beneficios.map((b) => (
+                <div class="benefit-box">
+                  <p>{b}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <!-- Preguntas frecuentes específicas -->
+          {servicio.faqs && servicio.faqs.length > 0 && (
+            <section class="detail-block scroll-reveal">
+              <h2>Preguntas frecuentes sobre este servicio</h2>
+              <div class="faq-accordion">
+                {servicio.faqs.map((f) => (
+                  <details class="faq-detail-item">
+                    <summary class="faq-detail-q">{f.q}</summary>
+                    <div class="faq-detail-a">
+                      <p>{f.a}</p>
+                    </div>
+                  </details>
+                ))}
+              </div>
+            </section>
+          )}
+
+        </div>
+
+        <!-- Barra lateral -->
+        <aside class="detail-sidebar scroll-reveal">
+          <div class="sidebar-card">
+            <h3>¿Deseas saber si este servicio le aplica a tu empresa?</h3>
+            <p>
+              El diagnóstico digital de FOSST evalúa el nivel de riesgo de tu actividad económica y el número de trabajadores para determinar el alcance exacto que debes cumplir.
+            </p>
+            <a href="/diagnostico" class="btn-primary w-full">
+              Hacer diagnóstico gratuito
+            </a>
+            <div class="sidebar-help">
+              <span>¿Preguntas inmediatas?</span>
+              <a href="https://wa.me/573203865953" target="_blank" rel="noopener noreferrer">
+                WhatsApp: 320 386 5953
+              </a>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .service-detail-wrapper {
+    background-color: var(--blanco-calido);
+    min-height: 100vh;
+    padding-top: calc(var(--spacing-800) + 2rem);
+    padding-bottom: var(--spacing-900);
+  }
+
+  .breadcrumb {
+    font-size: var(--text-xs);
+    color: var(--gris-apagado);
+    display: flex;
+    gap: var(--spacing-75);
+    margin-bottom: var(--spacing-400);
+  }
+
+  .breadcrumb a {
+    color: var(--azul-medio);
+  }
+
+  .service-detail-header {
+    margin-bottom: var(--spacing-600);
+    max-width: 820px;
+  }
+
+  .service-cat-badge {
+    display: inline-block;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--azul-medio);
+    margin-bottom: var(--spacing-100);
+  }
+
+  .service-detail-header h1 {
+    font-size: var(--text-4xl);
+    line-height: var(--lh-4xl);
+    color: var(--azul-marino);
+    margin-bottom: var(--spacing-200);
+  }
+
+  .service-lead {
+    font-size: var(--text-lg);
+    line-height: var(--lh-lg);
+    color: var(--gris-oscuro);
+    margin-bottom: var(--spacing-400);
+  }
+
+  .header-cta-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-200);
+  }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-600);
+  }
+
+  @media (min-width: 900px) {
+    .detail-grid {
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+
+  .detail-block {
+    margin-bottom: var(--spacing-600);
+    padding-bottom: var(--spacing-500);
+    border-bottom: 1px solid var(--gris-borde);
+  }
+
+  .detail-block:last-child {
+    border-bottom: none;
+  }
+
+  .detail-block h2 {
+    font-size: var(--text-2xl);
+    color: var(--azul-marino);
+    margin-bottom: var(--spacing-300);
+  }
+
+  .detail-block p {
+    font-size: var(--text-base);
+    color: var(--gris-oscuro);
+  }
+
+  .scope-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-200);
+  }
+
+  .scope-list li {
+    display: flex;
+    gap: var(--spacing-100);
+    font-size: var(--text-sm);
+    line-height: var(--lh-sm);
+    color: var(--gris-oscuro);
+  }
+
+  .check-icon {
+    color: var(--azul-medio);
+    font-weight: 800;
+  }
+
+  .benefits-boxes {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-200);
+  }
+
+  .benefit-box {
+    background: #ffffff;
+    border: 1px solid var(--gris-borde);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-200);
+    font-size: var(--text-sm);
+    color: var(--gris-oscuro);
+  }
+
+  /* FAQs */
+  .faq-detail-item {
+    border-bottom: 1px solid var(--gris-borde);
+    padding: var(--spacing-200) 0;
+  }
+
+  .faq-detail-q {
+    font-weight: 700;
+    cursor: pointer;
+    font-size: var(--text-base);
+    color: var(--azul-marino);
+  }
+
+  .faq-detail-a {
+    padding-top: var(--spacing-100);
+    font-size: var(--text-sm);
+    color: var(--gris-oscuro);
+  }
+
+  /* Sidebar */
+  .sidebar-card {
+    background: #ffffff;
+    border: 1px solid var(--gris-borde);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-400);
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 100px;
+  }
+
+  .sidebar-card h3 {
+    font-size: var(--text-lg);
+    color: var(--azul-marino);
+    margin-bottom: var(--spacing-200);
+  }
+
+  .sidebar-card p {
+    font-size: var(--text-sm);
+    color: var(--gris-oscuro);
+    margin-bottom: var(--spacing-300);
+  }
+
+  .w-full {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .sidebar-help {
+    margin-top: var(--spacing-300);
+    font-size: var(--text-xs);
+    color: var(--gris-apagado);
+    text-align: center;
+  }
+
+  .sidebar-help a {
+    display: block;
+    color: var(--azul-medio);
+    font-weight: 700;
+    margin-top: 2px;
+  }
+</style>

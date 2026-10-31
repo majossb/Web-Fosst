@@ -1,0 +1,104 @@
+---
+/**
+ * Política de Tratamiento de Datos Personales (Habeas Data)
+ * Ley 1581 de 2012 y Decreto 1377 de 2013 de Colombia
+ */
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="Política de Tratamiento de Datos Personales | FOSST"
+  description="Política de privacidad y protección de datos personales de FOSST conforme a la Ley 1581 de 2012."
+>
+  <div class="page-container">
+    <div class="container legal-content">
+      <h1>Política de Tratamiento de Datos Personales</h1>
+      <p class="updated">Conforme a la Ley 1581 de 2012 y Decreto 1377 de 2013 de la República de Colombia</p>
+
+      <section>
+        <h2>1. Responsable del tratamiento</h2>
+        <p>
+          <strong>FOSST Consultoría Integral</strong>, con domicilio en Bogotá D.C., Colombia, es el responsable del tratamiento de los datos personales recolectados a través de formularios de contacto, diagnósticos empresariales y canales de agendamiento. Correo de contacto para atención de derechos: <a href="mailto:andreacortes.fosst@gmail.com">andreacortes.fosst@gmail.com</a>.
+        </p>
+      </section>
+
+      <section>
+        <h2>2. Finalidades de la recolección</h2>
+        <p>
+          Los datos corporativos y de contacto solicitados serán utilizados con los siguientes propósitos exclusivos:
+        </p>
+        <ul>
+          <li>Generar y remitir el reporte técnico descriptivo del diagnóstico empresarial.</li>
+          <li>Coordinar y confirmar citas de asesoría técnica presencial o virtual.</li>
+          <li>Atender solicitudes, cotizaciones y consultas formuladas por canales oficiales.</li>
+          <li>Cumplir con las obligaciones legales y contractuales aplicables.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>3. Principio de minimización de datos</h2>
+        <p>
+          FOSST no solicita nombres de trabajadores específicos, diagnósticos médicos individuales, historias clínicas ni datos sensibles de salud durante sus diagnósticos preliminares en línea.
+        </p>
+      </section>
+
+      <section>
+        <h2>4. Derechos de los titulares (Habeas Data)</h2>
+        <p>
+          Los titulares de la información tienen derecho a conocer, actualizar, rectificar y solicitar la supresión de sus datos personales, así como a revocar la autorización otorgada para su tratamiento, escribiendo al correo del responsable.
+        </p>
+      </section>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .page-container {
+    background-color: var(--blanco-calido);
+    min-height: 100vh;
+    padding-top: calc(var(--spacing-800) + 2rem);
+    padding-bottom: var(--spacing-900);
+  }
+
+  .legal-content {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: var(--text-4xl);
+    color: var(--azul-marino);
+    margin-bottom: var(--spacing-100);
+  }
+
+  .updated {
+    font-size: var(--text-xs);
+    color: var(--gris-apagado);
+    margin-bottom: var(--spacing-600);
+  }
+
+  section {
+    margin-bottom: var(--spacing-500);
+  }
+
+  h2 {
+    font-size: var(--text-xl);
+    color: var(--azul-marino);
+    margin-bottom: var(--spacing-100);
+  }
+
+  p, li {
+    font-size: var(--text-sm);
+    line-height: var(--lh-base);
+    color: var(--gris-oscuro);
+  }
+
+  ul {
+    padding-left: var(--spacing-300);
+    margin-top: var(--spacing-100);
+  }
+
+  a {
+    color: var(--azul-medio);
+  }
+</style>

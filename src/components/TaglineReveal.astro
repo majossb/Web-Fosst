@@ -1,0 +1,74 @@
+---
+/**
+ * Sección de revelación de tagline — Estilo Kage Dark
+ * Activación progresiva de palabras al entrar en el viewport
+ * Fondo plano ultra oscuro, tipografía de alto contraste
+ */
+---
+
+<section class="relative py-28 bg-dark-base overflow-hidden" id="tagline">
+  <!-- Glow central sutil -->
+  <div class="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] rounded-full bg-brand-blue/10 blur-[130px]"></div>
+
+  <div class="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+    <p class="tagline-text text-3xl sm:text-5xl md:text-6xl font-extrabold leading-[1.15] text-white tracking-tight" id="tagline-text" aria-label="Del riesgo al orden. Entornos laborales seguros, sostenibles y productivos para tu empresa.">
+      <span class="tw" style="--d:0">Del</span>
+      <span class="tw text-brand-yellow" style="--d:1">riesgo</span>
+      <span class="tw" style="--d:2">al</span>
+      <span class="tw text-brand-cyan" style="--d:3">orden.</span>
+      <br class="hidden sm:inline" aria-hidden="true" />
+      <span class="tw" style="--d:4">Entornos</span>
+      <span class="tw" style="--d:5">laborales</span>
+      <span class="tw" style="--d:6">seguros,</span>
+      <span class="tw" style="--d:7">sostenibles</span>
+      <br class="hidden sm:inline" aria-hidden="true" />
+      <span class="tw" style="--d:8">y</span>
+      <span class="tw" style="--d:9">productivos</span>
+      <span class="tw" style="--d:10">para</span>
+      <span class="tw" style="--d:11">tu</span>
+      <span class="tw" style="--d:12">empresa.</span>
+    </p>
+  </div>
+</section>
+
+<style>
+  .tw {
+    display: inline-block;
+    opacity: 0.15;
+    transform: translateY(8px);
+    transition: opacity 600ms cubic-bezier(0.32, 0.72, 0, 1),
+                transform 600ms cubic-bezier(0.32, 0.72, 0, 1);
+    transition-delay: calc(var(--d) * 60ms);
+    margin-right: 0.25em;
+  }
+
+  .tagline-text.is-active .tw {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tw {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+</style>
+
+<script>
+  const tagline = document.getElementById('tagline-text');
+  if (tagline && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          tagline.classList.add('is-active');
+          observer.unobserve(tagline);
+        }
+      });
+    }, { threshold: 0.25 });
+    observer.observe(tagline);
+  } else if (tagline) {
+    tagline.classList.add('is-active');
+  }
+</script>

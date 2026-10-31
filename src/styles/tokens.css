@@ -1,0 +1,77 @@
+/* Tokens oficiales de diseño FOSST según directrices maestras y skill landing-page-design */
+:root {
+  /* Paleta cromática oficial */
+  --azul-profundo: #000F2E; /* Fondo base del mundo 3D y máxima profundidad */
+  --azul-marino: #001A4D;   /* Principal corporativo / Hero / Encabezados */
+  --azul-medio: #1F4FA3;    /* Enlaces, acentos técnicos, estado ordenado */
+  --amarillo-casco: #FFC800; /* Botones de acción única, estrellas de calificación, casco 3D */
+  --amarillo-hover: #E6B400; /* Hover para botones de acción */
+  --blanco-calido: #F7F7F2;  /* Base neutra clara y texto sobre fondos oscuros */
+  --gris-claro: #E8EBF0;     /* Fondos alternos técnicos */
+  --gris-borde: #D1D5DB;     /* Bordes completos de tarjetas y líneas editoriales */
+  --gris-oscuro: #3A4256;    /* Texto de lectura estándar */
+  --gris-apagado: #6B7280;   /* Texto secundario y metadatos */
+
+  /* Tipografía única aprobada: Manrope (sin cursivas en ninguna parte) */
+  --font-family: 'Manrope', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Escala de texto Tailwind estricta con altura de línea fija (B1) */
+  --text-xs: 0.75rem;    /* 12px / lh 16px */
+  --lh-xs: 1rem;
+  --text-sm: 0.875rem;   /* 14px / lh 20px */
+  --lh-sm: 1.25rem;
+  --text-base: 1rem;     /* 16px / lh 24px */
+  --lh-base: 1.5rem;
+  --text-lg: 1.125rem;   /* 18px / lh 28px */
+  --lh-lg: 1.75rem;
+  --text-xl: 1.25rem;    /* 20px / lh 28px */
+  --lh-xl: 1.75rem;
+  --text-2xl: 1.5rem;    /* 24px / lh 32px */
+  --lh-2xl: 2rem;
+  --text-3xl: 1.875rem;  /* 30px / lh 36px */
+  --lh-3xl: 2.25rem;
+  --text-4xl: 2.25rem;   /* 36px / lh 40px */
+  --lh-4xl: 2.5rem;
+  --text-5xl: 3rem;      /* 48px / lh 1 */
+  --lh-5xl: 1;
+  --text-6xl: 3.75rem;   /* 60px / lh 1 */
+  --lh-6xl: 1;
+
+  /* Tabla de espaciado estricto (B2) */
+  --spacing-0: 0px;
+  --spacing-25: 2px;
+  --spacing-50: 4px;
+  --spacing-75: 8px;
+  --spacing-100: 12px;
+  --spacing-200: 16px;
+  --spacing-300: 24px;
+  --spacing-400: 32px;
+  --spacing-500: 40px;
+  --spacing-600: 48px;
+  --spacing-700: 64px;
+  --spacing-800: 80px;
+  --spacing-900: 96px;
+
+  /* Radios de borde según Tailwind y fórmula anidada: inner = outer - gap */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-full: 9999px;
+
+  /* Física de movimiento y beziers personalizados (B7) */
+  --ease-fluid: cubic-bezier(0.32, 0.72, 0, 1);
+  --duration-hover: 120ms;
+  --duration-state: 200ms;
+  --duration-fluid: 700ms;
+  --duration-reveal: 800ms;
+
+  /* Sombras funcionales */
+  --shadow-sm: 0 1px 3px rgba(0, 15, 46, 0.08);
+  --shadow-md: 0 4px 14px rgba(0, 15, 46, 0.12);
+  --shadow-action: 0 8px 24px rgba(255, 200, 0, 0.32);
+
+  /* Dimensiones del contenedor */
+  --container-max: 1200px;
+}

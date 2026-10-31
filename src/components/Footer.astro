@@ -1,0 +1,240 @@
+---
+/**
+ * Footer corporativo FOSST
+ * Canales directos de WhatsApp, datos verificables, enlaces legales y créditos
+ */
+import Logo from './Logo.astro';
+---
+
+<footer class="site-footer">
+  <div class="container footer-container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="/" aria-label="FOSST - Inicio">
+          <Logo variant="light" height={36} showSubtitle={true} />
+        </a>
+        <p class="brand-desc">
+          Acompañamos a las micro, pequeñas y medianas empresas en la construcción de entornos laborales seguros, sostenibles y productivos en Colombia.
+        </p>
+        <div class="brand-cert">
+          <span>Resolución 0312 de 2019 · Resolución 40595 de 2022</span>
+        </div>
+      </div>
+
+      <div class="footer-links-grid">
+        <div class="link-col">
+          <h4 class="col-title">Servicios</h4>
+          <ul>
+            <li><a href="/servicios#sgsst">Diseño e implementación SG-SST</a></li>
+            <li><a href="/servicios#psicosocial">Riesgo psicosocial</a></li>
+            <li><a href="/servicios#talento">Gestión del talento humano</a></li>
+            <li><a href="/servicios#juridica">Asesoría jurídica laboral</a></li>
+            <li><a href="/servicios#ambiental">Gestión ambiental</a></li>
+            <li><a href="/servicios#epidemiologica">Vigilancia epidemiológica</a></li>
+            <li><a href="/servicios#vial">Planes de seguridad vial (PESV)</a></li>
+            <li><a href="/servicios#auditorias">Auditorías ISO internas</a></li>
+            <li><a href="/servicios#formaciones">Formaciones y brigadas</a></li>
+          </ul>
+        </div>
+
+        <div class="link-col">
+          <h4 class="col-title">Empresa</h4>
+          <ul>
+            <li><a href="/nosotros">Quiénes somos</a></li>
+            <li><a href="/diagnostico">Diagnóstico de cumplimiento</a></li>
+            <li><a href="/portafolio">Casos de intervención</a></li>
+            <li><a href="/clientes">Clientes y opiniones</a></li>
+            <li><a href="/contacto">Contacto directo</a></li>
+          </ul>
+        </div>
+
+        <div class="link-col">
+          <h4 class="col-title">Atención y contacto</h4>
+          <ul class="contact-list">
+            <li>
+              <span class="label">WhatsApp principal:</span>
+              <a href="https://wa.me/573203865953" target="_blank" rel="noopener noreferrer" class="link-highlight">
+                +57 320 386 5953
+              </a>
+            </li>
+            <li>
+              <span class="label">WhatsApp secundario:</span>
+              <a href="https://wa.me/573212262144" target="_blank" rel="noopener noreferrer" class="link-highlight">
+                +57 321 226 2144
+              </a>
+            </li>
+            <li>
+              <span class="label">Correo de contacto:</span>
+              <a href="mailto:andreacortes.fosst@gmail.com" class="link-subtle">
+                andreacortes.fosst@gmail.com
+              </a>
+            </li>
+            <li>
+              <span class="label">Redes oficiales:</span>
+              <div class="social-tags">
+                <a href="https://instagram.com/Fosst_oficial" target="_blank" rel="noopener noreferrer">Instagram @Fosst_oficial</a>
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">Facebook Fosst</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="legal-info">
+        <p>© {new Date().getFullYear()} FOSST Consultoría Integral. Todos los derechos reservados.</p>
+        <p class="nit-pending">Razón Social y NIT en proceso de actualización formal ante Cámara de Comercio.</p>
+      </div>
+      <div class="legal-links">
+        <a href="/legal/terminos">Términos del servicio</a>
+        <a href="/legal/privacidad">Tratamiento de datos (Habeas Data)</a>
+        <a href="/legal/pagos">Políticas de pagos y cotizaciones</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background-color: var(--azul-profundo);
+    color: var(--blanco-calido);
+    padding: var(--spacing-700) 0 var(--spacing-400);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-500);
+    margin-bottom: var(--spacing-600);
+  }
+
+  @media (min-width: 900px) {
+    .footer-top {
+      grid-template-columns: 1.2fr 2fr;
+      gap: var(--spacing-600);
+    }
+  }
+
+  .brand-desc {
+    margin-top: var(--spacing-200);
+    font-size: var(--text-sm);
+    line-height: var(--lh-sm);
+    color: var(--gris-claro);
+    opacity: 0.85;
+    max-width: 440px;
+  }
+
+  .brand-cert {
+    margin-top: var(--spacing-200);
+    font-size: var(--text-xs);
+    line-height: var(--lh-xs);
+    color: var(--amarillo-casco);
+    padding: var(--spacing-50) var(--spacing-100);
+    background-color: rgba(255, 200, 0, 0.08);
+    border: 1px solid rgba(255, 200, 0, 0.2);
+    border-radius: var(--radius-sm);
+    display: inline-block;
+  }
+
+  .footer-links-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-400);
+  }
+
+  @media (min-width: 600px) {
+    .footer-links-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .col-title {
+    color: #ffffff;
+    font-size: var(--text-sm);
+    line-height: var(--lh-sm);
+    font-weight: 700;
+    margin-bottom: var(--spacing-200);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .link-col ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-75);
+  }
+
+  .link-col a {
+    font-size: var(--text-xs);
+    line-height: var(--lh-xs);
+    color: var(--gris-claro);
+    opacity: 0.8;
+  }
+
+  .link-col a:hover {
+    opacity: 1;
+    color: var(--amarillo-casco);
+  }
+
+  .contact-list .label {
+    display: block;
+    font-size: var(--text-xs);
+    color: var(--gris-apagado);
+    margin-bottom: 2px;
+  }
+
+  .link-highlight {
+    color: var(--amarillo-casco) !important;
+    font-weight: 600;
+  }
+
+  .social-tags {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 4px;
+  }
+
+  .footer-bottom {
+    padding-top: var(--spacing-300);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-200);
+    font-size: var(--text-xs);
+    color: var(--gris-apagado);
+  }
+
+  @media (min-width: 800px) {
+    .footer-bottom {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  .nit-pending {
+    font-size: 11px;
+    color: var(--gris-apagado);
+    margin-top: 2px;
+  }
+
+  .legal-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-200);
+  }
+
+  .legal-links a {
+    color: var(--gris-claro);
+    opacity: 0.75;
+  }
+
+  .legal-links a:hover {
+    color: var(--amarillo-casco);
+    opacity: 1;
+  }
+</style>

@@ -1,0 +1,88 @@
+---
+/**
+ * Términos del Servicio FOSST
+ */
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="Términos del Servicio | FOSST Consultoría Integral"
+  description="Términos y condiciones de uso del sitio web y los servicios de asesoría y diagnóstico de FOSST."
+>
+  <div class="page-container">
+    <div class="container legal-content">
+      <h1>Términos del Servicio</h1>
+      <p class="updated">Última actualización: Octubre de 2026</p>
+
+      <section>
+        <h2>1. Identificación y objeto</h2>
+        <p>
+          El presente sitio web es operado por <strong>FOSST Consultoría Integral</strong>, firma de consultoría en gestión de riesgos laborales, seguridad y salud en el trabajo (SG-SST), seguridad vial (PESV), gestión ambiental y derecho laboral, con domicilio en Bogotá D.C., Colombia.
+        </p>
+      </section>
+
+      <section>
+        <h2>2. Alcance del diagnóstico preliminar digital</h2>
+        <p>
+          Las herramientas de autoevaluación y diagnóstico digital ofrecidas en este sitio web tienen carácter exclusivamente técnico y orientativo. Su finalidad es ilustrar de manera descriptiva el nivel aparente de cumplimiento frente a estándares mínimos legales. Los resultados no constituyen certificación de cumplimiento, auditoría formal ni concepto jurídico vinculante ante el Ministerio del Trabajo, la Superintendencia de Transporte ni las Administradoras de Riesgos Laborales (ARL).
+        </p>
+      </section>
+
+      <section>
+        <h2>3. Propiedad intelectual</h2>
+        <p>
+          Todos los contenidos, metodologías, textos, diseños, código fuente, logotipos y elementos tridimensionales son propiedad de FOSST o se encuentran licenciados para su uso. Queda prohibida su reproducción o distribución no autorizada.
+        </p>
+      </section>
+
+      <section>
+        <h2>4. Ley aplicable y jurisdicción</h2>
+        <p>
+          Estos términos se rigen bajo las leyes de la República de Colombia. Cualquier controversia será sometida a los jueces competentes de la ciudad de Bogotá D.C.
+        </p>
+      </section>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .page-container {
+    background-color: var(--blanco-calido);
+    min-height: 100vh;
+    padding-top: calc(var(--spacing-800) + 2rem);
+    padding-bottom: var(--spacing-900);
+  }
+
+  .legal-content {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: var(--text-4xl);
+    color: var(--azul-marino);
+    margin-bottom: var(--spacing-100);
+  }
+
+  .updated {
+    font-size: var(--text-xs);
+    color: var(--gris-apagado);
+    margin-bottom: var(--spacing-600);
+  }
+
+  section {
+    margin-bottom: var(--spacing-500);
+  }
+
+  h2 {
+    font-size: var(--text-xl);
+    color: var(--azul-marino);
+    margin-bottom: var(--spacing-100);
+  }
+
+  p {
+    font-size: var(--text-sm);
+    line-height: var(--lh-base);
+    color: var(--gris-oscuro);
+  }
+</style>

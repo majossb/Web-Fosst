@@ -1,0 +1,42 @@
+---
+/**
+ * Página del Diagnóstico Empresarial FOSST — Estilo Kage
+ * Autoevaluación guiada por pasos basada en el Banco Maestro v0.2
+ */
+import Layout from '../layouts/Layout.astro';
+import DiagnosticoWizard from '../components/DiagnosticoWizard.astro';
+---
+
+<Layout
+  title="Diagnóstico Empresarial de Riesgos Laborales y SST | FOSST"
+  description="Evalúa de forma guiada el estado de cumplimiento normativo, gestión de riesgos laborales, seguridad vial y ambiental de tu empresa en Colombia."
+>
+  <div class="relative min-h-screen bg-dark-base pt-32 pb-24 overflow-hidden">
+    <!-- Ambient Glows de fondo estilo Kage -->
+    <div class="pointer-events-none absolute left-1/2 top-20 -translate-x-1/2 h-[600px] w-[800px] rounded-full bg-brand-blue/15 blur-[160px]"></div>
+    <div class="pointer-events-none absolute right-1/4 top-1/3 h-[450px] w-[450px] rounded-full bg-brand-yellow/10 blur-[150px]"></div>
+
+    <div class="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Encabezado técnico -->
+      <header class="max-w-3xl mx-auto text-center mb-12 scroll-reveal">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] backdrop-blur-md mb-4">
+          <span class="h-1.5 w-1.5 rounded-full bg-brand-yellow animate-pulse"></span>
+          <span class="font-mono text-xs uppercase tracking-widest text-brand-yellow font-semibold">
+            Autoevaluación Técnica Mipymes
+          </span>
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-4">
+          Diagnóstico de Cumplimiento y Riesgos Laborales
+        </h1>
+        <p class="text-base sm:text-lg text-slate-400 leading-relaxed max-w-2xl mx-auto text-balance">
+          Herramienta guiada para identificar brechas legales frente a la Resolución 0312 de 2019, evaluar riesgos operacionales y estructurar tu plan de intervención en Colombia.
+        </p>
+      </header>
+
+      <!-- Componente Wizard Interactivo por Pasos -->
+      <DiagnosticoWizard />
+
+    </div>
+  </div>
+</Layout>

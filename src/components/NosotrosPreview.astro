@@ -1,0 +1,912 @@
+---
+// src/components/NosotrosPreview.astro
+// FOSST Consultoría Integral — Sección "Nosotros" del Landing Page
+// Inspiración y dirección de arte:
+// - Composición en 2 grandes espacios basada en la maqueta de referencia de FOSST
+// - Lado izquierdo: Presentación editorial de FOSST con tipografía serif protagonista y detalles sutiles
+// - Lado derecho: Mascota oficial como anfitriona y 4 tarjetas interactivas con volteo 3D (Lupi style)
+// - Descubrimiento manual (sin auto-volteo), accesible por teclado y adaptable a dispositivos táctiles
+
+const caracteristicas = [
+  {
+    num: '01',
+    id: 'equipo',
+    titulo: 'Equipo multidisciplinario',
+    frenteDesc: 'Expertos en SST, gestión empresarial y más.',
+    reversoTexto: 'Integramos conocimientos de distintas disciplinas para ofrecer una visión completa de las necesidades de tu organización.',
+    reversoPill: 'Visión 360° Integral',
+    iconSrc: '/images/illustrations/icon_equipo_clean.png',
+    iconAlt: 'Ilustración de equipo multidisciplinario de profesionales trabajando juntos',
+  },
+  {
+    num: '02',
+    id: 'cumplimiento',
+    titulo: 'Cumplimiento normativo',
+    frenteDesc: 'Te guiamos para cumplir con la normativa vigente.',
+    reversoTexto: 'Te orientamos en el cumplimiento de los requisitos legales aplicables a tu empresa, con acompañamiento técnico.',
+    reversoPill: 'Blindaje Técnico & Legal',
+    iconSrc: '/images/illustrations/icon_cumplimiento_clean.png',
+    iconAlt: 'Ilustración de balanza de cumplimiento y justicia normativa',
+  },
+  {
+    num: '03',
+    id: 'soluciones',
+    titulo: 'Soluciones a la medida de mipymes',
+    frenteDesc: 'Estrategias efectivas para tu empresa.',
+    reversoTexto: 'Diseñamos alternativas acordes con la realidad, los recursos y las necesidades de cada empresa.',
+    reversoPill: 'Cero Formatos Muertos',
+    iconSrc: '/images/illustrations/icon_soluciones_clean.png',
+    iconAlt: 'Ilustración de alianza estratégica y soluciones proporcionales',
+  },
+  {
+    num: '04',
+    id: 'cercania',
+    titulo: 'Cercanía humana',
+    frenteDesc: 'Estamos contigo en cada paso.',
+    reversoTexto: 'Construimos relaciones de confianza y acompañamos a nuestros clientes en cada etapa del proceso.',
+    reversoPill: 'Aliado Permanente',
+    iconSrc: '/images/illustrations/icon_cercania_clean.png',
+    iconAlt: 'Ilustración de corazón y cercanía humana',
+  },
+];
+---
+
+<section class="nos-section" id="nosotros" aria-labelledby="nos-title">
+  <!-- Borde superior arquitectónico con halo sutil (interfaz de unión con el Hero) -->
+  <div class="nos-horizon-lip" aria-hidden="true"></div>
+
+  <!-- Textura sutil de puntos decorativos en el margen izquierdo -->
+  <div class="nos-dot-matrix-left" aria-hidden="true">
+    {Array.from({ length: 24 }).map(() => <span class="matrix-dot"></span>)}
+  </div>
+
+  <!-- Línea orgánica gestual en la esquina inferior izquierda -->
+  <div class="nos-bottom-loop" aria-hidden="true">
+    <svg width="220" height="110" viewBox="0 0 220 110" fill="none">
+      <path d="M-20 85 C 40 85, 80 40, 50 20 C 20 0, 0 50, 45 75 C 90 100, 150 95, 215 110" stroke="#FFC800" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <div class="nos-layout-grid">
+    
+    <!-- ════════════════════════════════════════════════════════════════
+         LADO IZQUIERDO: PRESENTACIÓN EDITORIAL FOSST
+         ════════════════════════════════════════════════════════════════ -->
+    <div class="nos-editorial-side">
+      
+      <!-- Encabezado / Kicker -->
+      <div class="nos-kicker-bar reveal-node" data-reveal-delay="0">
+        <span class="kicker-amber-dot" aria-hidden="true"></span>
+        <span class="kicker-brand">CONOCE FOSST</span>
+        <span class="kicker-divider" aria-hidden="true"></span>
+        <span class="kicker-tagline">CONSULTORÍA CON VISIÓN HUMANA</span>
+      </div>
+
+      <!-- Gran Titular Protagonista con Tipografía Serif Elegante -->
+      <h2 class="nos-main-title" id="nos-title">
+        <span class="title-line-mask">
+          <span class="title-line-inner reveal-line" data-reveal-delay="80">
+            El respaldo técnico
+          </span>
+        </span>
+        <span class="title-line-mask">
+          <span class="title-line-inner reveal-line" data-reveal-delay="180">
+            de una gran consultora,
+          </span>
+        </span>
+        <span class="title-line-mask">
+          <span class="title-line-inner reveal-line" data-reveal-delay="280">
+            con la <span class="cercania-accent-wrap">
+              <em class="title-serif-italic">cercanía humana</em>
+              <svg class="title-organic-swoosh" width="165" height="10" viewBox="0 0 165 10" fill="none" aria-hidden="true">
+                <path d="M2 7C45 2.5 105 8 163 3.5" stroke="#FFC800" stroke-width="3.2" stroke-linecap="round"/>
+              </svg>
+            </span>
+          </span>
+        </span>
+        <span class="title-line-mask">
+          <span class="title-line-inner reveal-line" data-reveal-delay="380">
+            de un aliado.
+          </span>
+        </span>
+      </h2>
+
+      <!-- Descripción Breve y Asertiva -->
+      <p class="nos-brief-lead reveal-node" data-reveal-delay="460">
+        Acompañamos a las organizaciones a comprender sus riesgos, fortalecer su gestión y construir entornos de trabajo más seguros.
+      </p>
+
+      <!-- Enlace Editorial a Conocer la Historia Completa -->
+      <div class="nos-link-wrap reveal-node" data-reveal-delay="540">
+        <a href="/nosotros" class="nos-story-link" id="nos-history-btn">
+          <span>Descubre quiénes somos</span>
+          <svg class="link-diagonal-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════════════
+         LADO DERECHO: MASCOTA ANFITRIONA + 4 TARJETAS CON VOLTEO 3D
+         ════════════════════════════════════════════════════════════════ -->
+    <div class="nos-interactive-stage">
+      
+      <!-- Ventana Orgánica de Fondo con Mascota Anfitriona y Globo de Diálogo -->
+      <div class="mascot-host-header reveal-node" data-reveal-delay="200">
+        <picture>
+          <source srcset="/images/illustrations/mascot_host_stage.png" type="image/png" />
+          <img
+            src="/images/illustrations/mascot_host_stage.png"
+            alt="Mascota oficial FOSST como anfitriona presentando los cuatro pilares: ¡Trabajemos juntos por un entorno más seguro!"
+            class="mascot-stage-illustration"
+            width="535"
+            height="340"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
+      </div>
+
+      <!-- Cuadrícula de 4 Tarjetas con Volteo 3D Interactivo (Inspiración Lupi) -->
+      <div 
+        class="nos-cards-grid" 
+        role="region" 
+        aria-label="Los cuatro aspectos que definen a FOSST. Pasa el cursor o toca cada tarjeta para descubrir más información"
+      >
+        {caracteristicas.map((item, idx) => (
+          <div 
+            class={`flip-card-wrapper card-step-${idx + 1} reveal-node`}
+            data-reveal-delay={320 + idx * 90}
+            tabindex="0"
+            role="button"
+            aria-expanded="false"
+            aria-label={`Tarjeta ${item.num}: ${item.titulo}. Toca o presiona Enter para voltear`}
+            data-card-id={item.id}
+          >
+            <div class="flip-card-inner">
+              
+              <!-- ── FRENTE DE LA TARJETA ── -->
+              <div class="flip-card-face flip-face-front">
+                <div class="card-icon-container">
+                  <img
+                    src={item.iconSrc}
+                    alt={item.iconAlt}
+                    class="card-illustration-img"
+                    width="70"
+                    height="70"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <h3 class="card-front-title">{item.titulo}</h3>
+                <p class="card-front-summary">{item.frenteDesc}</p>
+                <div class="card-flip-prompt" aria-hidden="true">
+                  <span class="prompt-star">✦</span>
+                  <span class="prompt-text">Descubrir</span>
+                </div>
+              </div>
+
+              <!-- ── REVERSO DE LA TARJETA (DESCUBRIMIENTO 3D) ── -->
+              <div class="flip-card-face flip-face-back">
+                <div class="back-pill-header">
+                  <span class="back-num-tag">{item.num}</span>
+                  <span class="back-title-pill">{item.reversoPill}</span>
+                </div>
+                
+                <div class="back-quote-container">
+                  <span class="quote-symbol" aria-hidden="true">«</span>
+                  <p class="back-quote-text">{item.reversoTexto}</p>
+                  <span class="quote-symbol quote-close" aria-hidden="true">»</span>
+                </div>
+
+                <div class="back-flip-return" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="1 4 1 10 7 10"></polyline>
+                    <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                  </svg>
+                  <span>Volver</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Indicador sutil de 3 puntos (detalle estético de la referencia) -->
+      <div class="stage-footer-dots" aria-hidden="true">
+        <span class="foot-dot active"></span>
+        <span class="foot-dot"></span>
+        <span class="foot-dot"></span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Borde de transición inferior hacia Servicios (sección azul oscuro) -->
+  <div class="nos-transition-bottom" aria-hidden="true">
+    <div class="transition-lip-curve"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     ESTILOS CSS — EDITORIAL, TARJETAS 3D Y DETALLES ORGÁNICOS
+     ════════════════════════════════════════════════════════════════ -->
+<style>
+  /* ── Variables de la Sección Editorial FOSST ── */
+  .nos-section {
+    --nos-canvas-bg: #FEF9F1; /* Blanco cálido marfil de la referencia */
+    --nos-card-bg: #FFFFFF;
+    --nos-card-back-bg: #FAF7F0;
+    --nos-ink-navy: #001A4D;
+    --nos-ink-body: #3E475A;
+    --nos-ink-muted: #6C7589;
+    --nos-gold-safety: #FFC800;
+    --nos-gold-dark: #D99B00;
+    --nos-border-subtle: rgba(0, 26, 77, 0.08);
+
+    position: relative;
+    z-index: 6; /* Por encima del Hero fijo */
+    margin-top: -100vh; /* Se superpone durante el recorrido de recogimiento del Hero */
+    min-height: 100vh;
+    background-color: var(--nos-canvas-bg);
+    color: var(--nos-ink-body);
+    border-radius: clamp(36px, 5.5vw, 64px) clamp(36px, 5.5vw, 64px) 0 0;
+    box-shadow: 0 -32px 70px -20px rgba(0, 15, 46, 0.6);
+    padding: clamp(5rem, 8.5vw, 8rem) clamp(1.25rem, 4vw, 3.5rem) 0;
+    overflow: visible;
+  }
+
+  /* ── Halo arquitectónico superior ── */
+  .nos-horizon-lip {
+    position: absolute;
+    top: 0;
+    left: 8%;
+    right: 8%;
+    height: 2px;
+    background: linear-gradient(90deg, 
+      rgba(255, 200, 0, 0) 0%, 
+      rgba(255, 200, 0, 0.5) 30%, 
+      rgba(255, 200, 0, 0.95) 50%, 
+      rgba(255, 200, 0, 0.5) 70%, 
+      rgba(255, 200, 0, 0) 100%
+    );
+    border-radius: 2px;
+    pointer-events: none;
+    opacity: 0.9;
+  }
+
+  /* ── Matriz de puntos decorativa a la izquierda ── */
+  .nos-dot-matrix-left {
+    position: absolute;
+    left: 1.5rem;
+    top: 38%;
+    display: grid;
+    grid-template-columns: repeat(3, 6px);
+    grid-gap: 12px;
+    opacity: 0.35;
+    pointer-events: none;
+  }
+  .matrix-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--nos-ink-navy);
+  }
+
+  /* ── Bucle orgánico amarillo inferior ── */
+  .nos-bottom-loop {
+    position: absolute;
+    left: 0;
+    bottom: 2rem;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.85;
+  }
+
+  /* ── Cuadrícula Principal de 2 Grandes Espacios ── */
+  .nos-layout-grid {
+    position: relative;
+    max-width: 1320px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(3rem, 5vw, 5rem);
+    align-items: center;
+    padding-bottom: clamp(4.5rem, 7vw, 7.5rem);
+    z-index: 2;
+  }
+
+  @media (min-width: 1040px) {
+    .nos-layout-grid {
+      grid-template-columns: 0.92fr 1.35fr;
+      gap: 3.5rem;
+    }
+  }
+
+  @media (min-width: 1240px) {
+    .nos-layout-grid {
+      grid-template-columns: 0.9fr 1.4fr;
+      gap: 4.5rem;
+    }
+  }
+
+  /* ════════════════════════════════════════════════════════════════
+     LADO IZQUIERDO: ESTILO EDITORIAL
+     ════════════════════════════════════════════════════════════════ */
+  .nos-editorial-side {
+    position: relative;
+    z-index: 3;
+    max-width: 540px;
+  }
+
+  /* Kicker / Encabezado superior */
+  .nos-kicker-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 1.5rem;
+    font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+  .kicker-amber-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--nos-gold-safety);
+    box-shadow: 0 0 8px rgba(255, 200, 0, 0.6);
+  }
+  .kicker-brand {
+    color: var(--nos-ink-navy);
+    font-weight: 800;
+  }
+  .kicker-divider {
+    width: 24px;
+    height: 2px;
+    background: rgba(0, 26, 77, 0.25);
+    border-radius: 1px;
+  }
+  .kicker-tagline {
+    color: var(--nos-ink-navy);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  /* Gran Titular Editorial con Playfair Display */
+  .nos-main-title {
+    margin: 0 0 1.75rem;
+    font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
+    font-size: clamp(2.4rem, 4.5vw, 3.85rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: var(--nos-ink-navy);
+  }
+
+  .title-line-mask {
+    display: block;
+    overflow: hidden;
+  }
+
+  .title-line-inner {
+    display: inline-block;
+    transform: translateY(110%);
+    opacity: 0;
+    transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.85s ease;
+    will-change: transform, opacity;
+  }
+
+  .nos-section.is-revealed .title-line-inner {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .cercania-accent-wrap {
+    position: relative;
+    display: inline-block;
+  }
+
+  .title-serif-italic {
+    font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
+    font-style: italic;
+    font-weight: 600;
+    color: #123377;
+    position: relative;
+  }
+
+  .title-organic-swoosh {
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 8px;
+    pointer-events: none;
+    filter: drop-shadow(0 1px 2px rgba(255, 200, 0, 0.4));
+  }
+
+  /* Descripción Breve */
+  .nos-brief-lead {
+    margin: 0 0 2.25rem;
+    font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+    font-size: clamp(1.02rem, 1.2vw, 1.15rem);
+    line-height: 1.68;
+    color: var(--nos-ink-body);
+    max-width: 48ch;
+  }
+
+  /* Enlace con Línea Amarilla */
+  .nos-link-wrap {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .nos-story-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: var(--nos-ink-navy);
+    text-decoration: none;
+    padding-bottom: 0.35rem;
+    border-bottom: 2.5px solid var(--nos-gold-safety);
+    transition: color 0.2s, border-color 0.2s, transform 0.2s;
+  }
+  .nos-story-link:hover {
+    color: #123377;
+    border-color: #FFD21A;
+    transform: translateX(3px);
+  }
+  .link-diagonal-arrow {
+    transition: transform 0.25s ease;
+  }
+  .nos-story-link:hover .link-diagonal-arrow {
+    transform: translate(2px, -2px);
+  }
+
+  /* ════════════════════════════════════════════════════════════════
+     LADO DERECHO: MASCOTA ANFITRIONA + 4 TARJETAS 3D FLIP
+     ════════════════════════════════════════════════════════════════ */
+  .nos-interactive-stage {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 3;
+  }
+
+  /* Ventana con Mascota Anfitriona y Globo de Diálogo */
+  .mascot-host-header {
+    position: relative;
+    width: 100%;
+    max-width: 535px;
+    margin: 0 auto -42px; /* Las tarjetas se solapan ligeramente debajo de las patas */
+    z-index: 1;
+    pointer-events: none;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .mascot-stage-illustration {
+    width: 100%;
+    max-width: 480px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    filter: drop-shadow(0 12px 24px rgba(0, 26, 77, 0.1));
+  }
+
+  /* ── Cuadrícula de 4 Tarjetas ── */
+  .nos-cards-grid {
+    position: relative;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.15rem;
+    z-index: 2;
+  }
+
+  /* Alturas y desfasajes sutiles de la referencia (stepping wave) */
+  @media (min-width: 1040px) {
+    .card-step-1 { transform: translateY(18px); }
+    .card-step-2 { transform: translateY(6px); }
+    .card-step-3 { transform: translateY(0px); }
+    .card-step-4 { transform: translateY(14px); }
+  }
+
+  /* ════════════════════════════════════════════════════════════════
+     INTERACCIÓN 3D FLIP (INSPIRADA EN LUPI)
+     ════════════════════════════════════════════════════════════════ */
+  .flip-card-wrapper {
+    perspective: 1100px;
+    outline: none;
+    cursor: pointer;
+    min-height: 290px;
+  }
+
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 290px;
+    transform-style: preserve-3d;
+    transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    border-radius: 22px;
+  }
+
+  /* Volteo en Desktop al pasar el ratón o con focus de teclado */
+  @media (hover: hover) and (pointer: fine) {
+    .flip-card-wrapper:hover .flip-card-inner,
+    .flip-card-wrapper:focus-visible .flip-card-inner {
+      transform: rotateY(180deg) translateY(-5px);
+      box-shadow: 0 22px 42px -12px rgba(0, 26, 77, 0.2);
+    }
+  }
+
+  /* Volteo activo en móvil por toque o vía JavaScript */
+  .flip-card-wrapper.is-flipped .flip-card-inner {
+    transform: rotateY(180deg) translateY(-5px);
+    box-shadow: 0 22px 42px -12px rgba(0, 26, 77, 0.2);
+  }
+
+  /* Caras de la Tarjeta */
+  .flip-card-face {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 22px;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 1.15rem 1.25rem;
+    box-sizing: border-box;
+  }
+
+  /* ── CARA FRONTAL ── */
+  .flip-face-front {
+    background: var(--nos-card-bg);
+    border: 1px solid var(--nos-border-subtle);
+    box-shadow: 0 12px 28px -10px rgba(0, 26, 77, 0.08), 0 2px 6px rgba(0, 26, 77, 0.03);
+    align-items: center;
+    text-align: center;
+    z-index: 2;
+    transform: rotateY(0deg);
+    justify-content: flex-start;
+  }
+
+  .card-icon-container {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.85rem;
+  }
+
+  .card-illustration-img {
+    max-height: 72px;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0, 26, 77, 0.08));
+    transition: transform 0.3s ease;
+  }
+  .flip-card-wrapper:hover .card-illustration-img {
+    transform: scale(1.06);
+  }
+
+  .card-front-title {
+    margin: 0 0 0.55rem;
+    font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
+    font-size: 1.08rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--nos-ink-navy);
+  }
+
+  .card-front-summary {
+    margin: 0 0 auto;
+    font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+    font-size: 0.8rem;
+    line-height: 1.45;
+    color: var(--nos-ink-muted);
+  }
+
+  .card-flip-prompt {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25rem 0.65rem;
+    margin-top: 0.85rem;
+    background: #FAF8F2;
+    border-radius: 9999px;
+    font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--nos-ink-navy);
+    border: 1px solid rgba(0, 26, 77, 0.06);
+  }
+  .prompt-star {
+    color: var(--nos-gold-safety);
+    font-size: 0.72rem;
+  }
+
+  /* ── CARA POSTERIOR (REVERSO) ── */
+  .flip-face-back {
+    background: var(--nos-card-back-bg);
+    border: 1.5px solid rgba(0, 26, 77, 0.12);
+    box-shadow: 0 16px 36px -12px rgba(0, 26, 77, 0.15);
+    color: var(--nos-ink-navy);
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+  }
+
+  .back-pill-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+  }
+
+  .back-num-tag {
+    font-family: var(--font-serif, 'Playfair Display', serif);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--nos-gold-dark);
+  }
+
+  .back-title-pill {
+    font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+    font-size: 0.68rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.2rem 0.55rem;
+    background: #FFFFFF;
+    color: var(--nos-ink-navy);
+    border-radius: 9999px;
+    border: 1px solid rgba(0, 26, 77, 0.08);
+  }
+
+  .back-quote-container {
+    position: relative;
+    padding: 0.5rem 0.2rem;
+    margin: auto 0;
+  }
+
+  .quote-symbol {
+    font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
+    font-size: 1.8rem;
+    line-height: 1;
+    color: var(--nos-gold-safety);
+    display: block;
+    margin-bottom: -0.25rem;
+  }
+  .quote-close {
+    margin-top: -0.25rem;
+    margin-bottom: 0;
+  }
+
+  .back-quote-text {
+    margin: 0;
+    font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+    font-size: 0.85rem;
+    line-height: 1.55;
+    font-weight: 600;
+    color: var(--nos-ink-navy);
+  }
+
+  .back-flip-return {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--nos-ink-muted);
+  }
+
+  /* ── Puntos de Paginación / UI Footer ── */
+  .stage-footer-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    margin-top: 1.75rem;
+  }
+  .foot-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #D9DCE2;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .foot-dot.active {
+    background: var(--nos-gold-safety);
+    box-shadow: 0 0 8px rgba(255, 200, 0, 0.6);
+    transform: scale(1.15);
+  }
+
+  /* ════════════════════════════════════════════════════════════════
+     ANIMACIONES DE ENTRADA PROGRESIVA
+     ════════════════════════════════════════════════════════════════ */
+  .reveal-node {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+
+  .nos-section.is-revealed .reveal-node {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Transición inferior hacia Servicios ── */
+  .nos-transition-bottom {
+    position: relative;
+    height: 52px;
+    margin: 0 calc(-1 * clamp(1.25rem, 4vw, 3.5rem));
+    background: #000F2E;
+    border-radius: clamp(32px, 5vw, 56px) clamp(32px, 5vw, 56px) 0 0;
+  }
+
+  /* ════════════════════════════════════════════════════════════════
+     RESPONSIVIDAD Y DISPOSITIVOS MÓVILES
+     ════════════════════════════════════════════════════════════════ */
+  @media (max-width: 1039px) {
+    .nos-cards-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+    .card-step-1, .card-step-2, .card-step-3, .card-step-4 {
+      transform: none !important;
+    }
+    .mascot-host-header {
+      margin-bottom: -20px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .nos-section {
+      margin-top: -90vh;
+      border-radius: 28px 28px 0 0;
+      padding-top: 4.5rem;
+    }
+    .nos-cards-grid {
+      grid-template-columns: 1fr;
+      gap: 1.15rem;
+      max-width: 340px;
+      margin: 0 auto;
+    }
+    .flip-card-wrapper {
+      min-height: 270px;
+    }
+    .flip-card-inner {
+      min-height: 270px;
+    }
+    .nos-editorial-side {
+      text-align: left;
+    }
+    .nos-dot-matrix-left {
+      display: none;
+    }
+    .mascot-host-header {
+      margin-bottom: -10px;
+      max-width: 320px;
+    }
+  }
+
+  /* ════════════════════════════════════════════════════════════════
+     PREFERENCIAS DE MOVIMIENTO REDUCIDO
+     ════════════════════════════════════════════════════════════════ */
+  @media (prefers-reduced-motion: reduce) {
+    .nos-section {
+      margin-top: 0;
+      box-shadow: none;
+    }
+    .reveal-node, .title-line-inner {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+    .flip-card-inner {
+      transition: none !important;
+    }
+    .flip-card-wrapper:hover .flip-card-inner,
+    .flip-card-wrapper.is-flipped .flip-card-inner {
+      transform: none !important;
+    }
+    .flip-card-wrapper.is-flipped .flip-face-front {
+      opacity: 0 !important;
+      pointer-events: none;
+    }
+    .flip-card-wrapper.is-flipped .flip-face-back {
+      transform: none !important;
+      opacity: 1 !important;
+    }
+  }
+</style>
+
+<noscript>
+  <style>
+    .reveal-node, .title-line-inner { opacity: 1 !important; transform: none !important; }
+  </style>
+</noscript>
+
+<!-- ════════════════════════════════════════════════════════════════
+     LÓGICA CLIENTE — VOLTEO 3D EN DISPOSITIVOS TÁCTILES Y TECLADO
+     ════════════════════════════════════════════════════════════════ -->
+<script>
+  (() => {
+    const nosSection = document.getElementById('nosotros');
+    if (!nosSection) return;
+
+    // 1. REVELADO PROGRESIVO DE LÍNEAS Y ELEMENTOS (INTERSECTION OBSERVER)
+    const revealElements = () => {
+      const revealNodes = nosSection.querySelectorAll<HTMLElement>('.reveal-node, .reveal-line');
+      revealNodes.forEach((node) => {
+        const delay = node.getAttribute('data-reveal-delay') || '0';
+        node.style.transitionDelay = `${delay}ms`;
+      });
+      nosSection.classList.add('is-revealed');
+    };
+
+    if (!('IntersectionObserver' in window)) {
+      revealElements();
+    } else {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const entry = entries[0];
+          if (entry.isIntersecting) {
+            revealElements();
+          }
+        },
+        { threshold: 0.15 }
+      );
+      observer.observe(nosSection);
+    }
+
+    // 2. INTERACCIÓN DE VOLTEO 3D EN DISPOSITIVOS TÁCTILES Y TECLADO (LUPI STYLE)
+    const flipCards = nosSection.querySelectorAll<HTMLElement>('.flip-card-wrapper');
+
+    flipCards.forEach((card) => {
+      const toggleCard = () => {
+        const isFlipped = card.classList.contains('is-flipped');
+        
+        // Alternar estado de la tarjeta tocada
+        card.classList.toggle('is-flipped', !isFlipped);
+        card.setAttribute('aria-expanded', String(!isFlipped));
+      };
+
+      // Tocar en móvil / clic manual
+      card.addEventListener('click', (e) => {
+        // En dispositivos móviles o clics directos
+        toggleCard();
+      });
+
+      // Accesibilidad con teclado (Enter y Espacio)
+      card.addEventListener('keydown', (e: KeyboardEvent) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleCard();
+        }
+      });
+    });
+  })();
+</script>

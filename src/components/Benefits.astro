@@ -1,0 +1,72 @@
+---
+/**
+ * Beneficios concretos para mipymes — Estilo Kage
+ * 4 resultados medibles en contenedores Glassmorphism
+ */
+const benefits = [
+  {
+    num: '01',
+    title: 'Identificación temprana de brechas',
+    body: 'Evaluamos tu situación real frente a los estándares mínimos del SG-SST para priorizar lo urgente y evitar requerimientos o sanciones del Ministerio del Trabajo.',
+    badge: 'NORMATIVIDAD'
+  },
+  {
+    num: '02',
+    title: 'Soluciones a la medida de tu empresa',
+    body: 'Planes proporcionales a tu número de trabajadores, actividad económica y clase de riesgo. Sin estructuras sobredimensionadas que no puedas sostener.',
+    badge: 'PROPORCIONALIDAD'
+  },
+  {
+    num: '03',
+    title: 'Equipo multidisciplinario en un solo contrato',
+    body: 'Profesionales en SST, derecho laboral, psicología organizacional, fisioterapia, gestión ambiental y seguridad vial coordinados bajo una misma estrategia.',
+    badge: 'MULTIDISCIPLINAR'
+  },
+  {
+    num: '04',
+    title: 'Prevención de riesgos y mejores condiciones',
+    body: 'Intervenciones enfocadas en reducir incidentes, gestionar restricciones médicas y fortalecer la cultura preventiva de tu equipo de trabajo.',
+    badge: 'BIENESTAR'
+  },
+];
+---
+
+<section class="relative py-24 bg-dark-base overflow-hidden" id="beneficios">
+  <div class="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-2xl mx-auto text-center mb-16 scroll-reveal">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] backdrop-blur-md mb-4">
+        <span class="h-1.5 w-1.5 rounded-full bg-brand-yellow"></span>
+        <span class="font-mono text-xs uppercase tracking-widest text-brand-yellow font-semibold">
+          Por qué FOSST
+        </span>
+      </div>
+      <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-4">
+        Resultados Concretos para tu Empresa
+      </h2>
+      <p class="text-base md:text-lg text-slate-400 leading-relaxed text-balance">
+        Metodología estructurada para que tu empresa alcance el cumplimiento normativo con acompañamiento humano, sin burocracia inútil.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 scroll-reveal">
+      {benefits.map((b) => (
+        <div class="p-8 rounded-2xl bg-white/[0.02] border border-white/[0.08] backdrop-blur-xl hover:border-brand-yellow/30 hover:shadow-glow transition-all duration-300">
+          <div class="flex items-center justify-between mb-4">
+            <span class="font-mono text-2xl font-extrabold text-brand-yellow">
+              {b.num}
+            </span>
+            <span class="font-mono text-xs text-brand-cyan bg-brand-cyan/10 border border-brand-cyan/20 px-2 py-0.5 rounded">
+              {b.badge}
+            </span>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3 tracking-tight">
+            {b.title}
+          </h3>
+          <p class="text-sm leading-relaxed text-slate-400">
+            {b.body}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,327 @@
+---
+// src/components/MethodologySection.astro
+// Explica el valor del acompañamiento de FOSST en 3 fases reales, sin inventar metodologías
+const steps = [
+  {
+    phase: 'FASE 01',
+    badge: 'Auditoría Inicial',
+    title: 'Diagnóstico y evaluación de brechas',
+    desc: 'Analizamos la actividad económica de tu empresa, clase de riesgo ARL (I a V), número de colaboradores y modalidades de contratación para identificar con precisión qué estándares legales aplican y qué documentos o controles hacen falta.',
+    deliverables: 'Informe preliminar de cumplimiento y matriz de brechas normativas.'
+  },
+  {
+    phase: 'FASE 02',
+    badge: 'Plan de Trabajo',
+    title: 'Priorización y cronograma técnico',
+    desc: 'No intentamos hacer todo en un solo día: estructuramos un plan anual de trabajo viable, priorizando las urgencias legales, visitas programadas de ARL y la capacidad operativa real de tu empresa. Cada tarea tiene responsable, plazo y soporte.',
+    deliverables: 'Cronograma firmado, asignación de responsabilidades y presupuesto estimado.'
+  },
+  {
+    phase: 'FASE 03',
+    badge: 'Blindaje Continuo',
+    title: 'Implementación, capacitación y seguimiento',
+    desc: 'Ejecutamos en terreno: capacitamos a los colaboradores, conformamos el COPASST o Vigía, estructuramos la brigada de emergencias y auditamos periódicamente para que el sistema esté vivo y listo ante cualquier visita o requerimiento.',
+    deliverables: 'Registros de asistencia, actas de comités, matriz de riesgos y blindaje jurídico.'
+  }
+];
+---
+
+<section class="methodology-section" id="metodologia" aria-labelledby="methodology-heading">
+  <div class="methodology-container">
+    
+    <!-- Encabezado Centrado con Aire y Respiro Visual -->
+    <header class="methodology-header">
+      <div class="section-eyebrow">
+        <span class="eyebrow-dot" aria-hidden="true"></span>
+        <span class="eyebrow-text">MÉTODO DE TRABAJO TRANSPARENTE</span>
+      </div>
+
+      <h2 id="methodology-heading" class="methodology-title">
+        Acompañamiento paso a paso, <em class="title-accent">sin improvisaciones</em>.
+      </h2>
+
+      <p class="methodology-lead">
+        Un proceso estructurado para llevar a tu organización desde la incertidumbre documental hasta un entorno laboral ordenado, seguro y conforme a la ley colombiana.
+      </p>
+    </header>
+
+    <!-- Línea de Progresión Técnica en 3 Fases -->
+    <div class="phases-track">
+      {steps.map((step, index) => (
+        <article class="phase-card">
+          <div class="phase-top-bar">
+            <span class="phase-number">{step.phase}</span>
+            <span class="phase-badge">{step.badge}</span>
+          </div>
+
+          <div class="phase-connector" aria-hidden="true">
+            <span class="connector-dot"></span>
+            {index < steps.length - 1 && <span class="connector-line"></span>}
+          </div>
+
+          <div class="phase-content">
+            <h3 class="phase-title">{step.title}</h3>
+            <p class="phase-desc">{step.desc}</p>
+            
+            <div class="phase-deliverable">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FFC800" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span><strong>Entregable:</strong> {step.deliverables}</span>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Cierre de sección con llamada a evaluación preliminar -->
+    <footer class="methodology-footer">
+      <div class="footer-box">
+        <div class="footer-text">
+          <strong>¿Quieres saber en qué fase se encuentra tu empresa hoy?</strong>
+          <span>Nuestro formulario de autodiagnóstico te da un resultado preliminar en menos de 3 minutos.</span>
+        </div>
+        <a href="/diagnostico" class="btn-methodology-cta">
+          <span>Iniciar autodiagnóstico gratuito</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    </footer>
+
+  </div>
+</section>
+
+<style>
+  .methodology-section {
+    position: relative;
+    background-color: #001740;
+    color: #F7F7F2;
+    padding: 7rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .methodology-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .methodology-header {
+    max-width: 760px;
+    margin: 0 auto 4.5rem;
+    text-align: center;
+  }
+
+  .section-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 1.25rem;
+  }
+  .eyebrow-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--yellow, #FFC800);
+    box-shadow: 0 0 10px rgba(255, 200, 0, 0.7);
+  }
+  .eyebrow-text {
+    font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--yellow, #FFC800);
+    text-transform: uppercase;
+  }
+
+  .methodology-title {
+    font-family: var(--font-serif, 'Playfair Display', serif);
+    font-size: clamp(2.1rem, 3.5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.22;
+    color: #FFFFFF;
+    margin: 0 0 1.35rem;
+  }
+  .title-accent {
+    color: var(--yellow, #FFC800);
+    font-style: italic;
+    font-weight: 600;
+  }
+
+  .methodology-lead {
+    font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+    font-size: 1.02rem;
+    line-height: 1.68;
+    color: rgba(247, 247, 242, 0.82);
+    margin: 0;
+  }
+
+  /* Pista de fases */
+  .phases-track {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 4rem;
+    position: relative;
+  }
+  @media (min-width: 900px) {
+    .phases-track {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  .phase-card {
+    background: rgba(0, 19, 56, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2.2rem 1.8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.25s ease, border-color 0.25s ease;
+  }
+  .phase-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255, 200, 0, 0.35);
+  }
+
+  .phase-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+
+  .phase-number {
+    font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: var(--yellow, #FFC800);
+  }
+
+  .phase-badge {
+    font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.25rem 0.65rem;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(247, 247, 242, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .phase-connector {
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .connector-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--yellow, #FFC800);
+    box-shadow: 0 0 10px rgba(255, 200, 0, 0.6);
+  }
+  .connector-line {
+    flex: 1;
+    height: 1.5px;
+    background: linear-gradient(90deg, rgba(255, 200, 0, 0.4), rgba(255, 255, 255, 0.1));
+  }
+
+  .phase-title {
+    font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin: 0 0 0.85rem;
+    line-height: 1.35;
+  }
+
+  .phase-desc {
+    font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: rgba(247, 247, 242, 0.78);
+    margin: 0 0 1.5rem;
+  }
+
+  .phase-deliverable {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+    font-size: 0.8rem;
+    line-height: 1.45;
+    color: rgba(247, 247, 242, 0.85);
+  }
+  .phase-deliverable strong {
+    color: var(--yellow, #FFC800);
+  }
+
+  /* Footer de sección */
+  .methodology-footer {
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(0, 26, 77, 0.7) 0%, rgba(0, 15, 45, 0.9) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 1.75rem 2.25rem;
+  }
+
+  .footer-box {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    align-items: flex-start;
+  }
+  @media (min-width: 820px) {
+    .footer-box {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .footer-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .footer-text strong {
+    font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+    font-size: 1.02rem;
+    color: #FFFFFF;
+  }
+  .footer-text span {
+    font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+    font-size: 0.86rem;
+    color: rgba(247, 247, 242, 0.75);
+  }
+
+  .btn-methodology-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgba(255, 255, 255, 0.08);
+    color: #FFFFFF;
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 0.75rem 1.4rem;
+    border-radius: 9999px;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+  }
+  .btn-methodology-cta:hover {
+    background: var(--yellow, #FFC800);
+    border-color: var(--yellow, #FFC800);
+    color: #001A4D;
+  }
+</style>

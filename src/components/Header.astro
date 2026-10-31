@@ -1,0 +1,162 @@
+---
+/**
+ * Header y Navegación Flotante Kage (`Header.astro`)
+ * - Barra superior flotante con efecto de vidrio (backdrop-blur-md bg-black/40 border border-white/10)
+ * - Logo de FOSST con letras blancas y casco amarillo
+ * - Menú: Inicio, Nosotros, Servicios, Portafolio, Clientes, Contacto
+ * - Botón fijo "Agenda tu diagnóstico" en amarillo #FFC800 con texto oscuro e iluminación sutil
+ */
+import Logo from './Logo.astro';
+
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = '/' } = Astro.props;
+
+const navLinks = [
+  { href: '/', label: 'Inicio' },
+  { href: '/nosotros', label: 'Nosotros' },
+  { href: '/servicios', label: 'Servicios' },
+  { href: '/portafolio', label: 'Portafolio' },
+  { href: '/clientes', label: 'Clientes' },
+  { href: '/contacto', label: 'Contacto' },
+];
+---
+
+<header class="fixed top-0 left-0 right-0 z-[10000] flex justify-center pt-5 px-4 pointer-events-none" id="fluid-header">
+  <div class="pointer-events-auto flex items-center justify-between gap-6 sm:gap-8 w-max max-w-[96%] px-4 sm:px-6 py-2.5 rounded-full bg-black/40 backdrop-blur-md border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)] transition-all duration-300">
+    
+    <!-- Logo FOSST -->
+    <a href="/" class="flex items-center py-0.5" aria-label="FOSST - Volver al inicio">
+      <Logo variant="light" height={30} />
+    </a>
+
+    <!-- Menú de navegación desktop -->
+    <nav class="hidden md:block" aria-label="Navegación principal">
+      <ul class="flex items-center gap-6 list-none m-0 p-0">
+        {navLinks.map((link) => {
+          const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href));
+          return (
+            <li>
+              <a
+                href={link.href}
+                class={`text-xs font-semibold tracking-wide transition-all duration-200 px-3 py-1.5 rounded-full ${
+                  isActive
+                    ? 'text-white bg-white/10 shadow-sm'
+                    : 'text-slate-400 hover:text-white hover:bg-white/[0.05]'
+                }`}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                {link.label}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+
+    <!-- Acción principal única fija -->
+    <div class="flex items-center gap-3">
+      <a href="/diagnostico" class="btn-primary text-xs !py-2 !px-4 shadow-[0_0_15px_rgba(255,200,0,0.3)] hover:shadow-[0_0_25px_rgba(255,200,0,0.5)]">
+        Agenda tu diagnóstico
+      </a>
+
+      <!-- Botón móvil morphing -->
+      <button
+        class="md:hidden pointer-events-auto relative w-8 h-8 flex flex-col justify-center items-center cursor-pointer p-0 bg-transparent border-0"
+        id="morph-btn"
+        aria-label="Alternar menú de navegación"
+        aria-expanded="false"
+        aria-controls="mobile-modal"
+      >
+        <span class="morph-line top block absolute w-5 h-0.5 bg-white rounded transition-transform duration-300 -translate-y-1"></span>
+        <span class="morph-line bottom block absolute w-5 h-0.5 bg-white rounded transition-transform duration-300 translate-y-1"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal móvil expansivo con efecto vidrio Kage -->
+  <div class="fixed inset-0 bg-black/80 backdrop-blur-3xl z-[9990] flex items-center justify-center opacity-0 invisible transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] p-6 pointer-events-none" id="mobile-modal" aria-hidden="true">
+    <div class="w-full max-w-sm flex flex-col items-center gap-8">
+      <nav aria-label="Menú móvil">
+        <ul class="flex flex-col items-center gap-4 w-full list-none p-0">
+          {navLinks.map((link, index) => (
+            <li class="modal-nav-item opacity-0 translate-y-6 transition-all duration-500" style={`transition-delay: ${index * 50 + 100}ms`}>
+              <a href={link.href} class="text-2xl font-bold tracking-tight text-white hover:text-brand-yellow transition-colors block py-1">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <div class="w-full pt-4 border-t border-white/10 flex flex-col gap-4">
+        <a href="/diagnostico" class="btn-primary w-full text-center justify-center">
+          Agenda tu diagnóstico
+        </a>
+        <div class="text-center text-xs text-slate-400">
+          <span>Atención directa por WhatsApp:</span>
+          <a href="https://wa.me/573203865953" target="_blank" rel="noopener noreferrer" class="block text-brand-yellow font-semibold mt-1">
+            +57 320 386 5953
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .hamburger-morph[aria-expanded="true"] .morph-line.top {
+    transform: translateY(0) rotate(45deg);
+    background-color: #FFC800;
+  }
+
+  .hamburger-morph[aria-expanded="true"] .morph-line.bottom {
+    transform: translateY(0) rotate(-45deg);
+    background-color: #FFC800;
+  }
+
+  #mobile-modal.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  #mobile-modal.is-open .modal-nav-item {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+
+<script>
+  const morphBtn = document.getElementById('morph-btn');
+  const modal = document.getElementById('mobile-modal');
+
+  function toggleMenu() {
+    const isExpanded = morphBtn?.getAttribute('aria-expanded') === 'true';
+    const nextState = !isExpanded;
+    morphBtn?.setAttribute('aria-expanded', String(nextState));
+
+    if (nextState) {
+      modal?.classList.add('is-open');
+      modal?.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    } else {
+      modal?.classList.remove('is-open');
+      modal?.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+  }
+
+  morphBtn?.addEventListener('click', toggleMenu);
+
+  modal?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      morphBtn?.setAttribute('aria-expanded', 'false');
+      modal?.classList.remove('is-open');
+      modal?.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    });
+  });
+</script>

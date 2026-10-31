@@ -1,0 +1,36 @@
+---
+/**
+ * Sección Franja de Confianza — Estilo Kage
+ * Datos verificables, sin inventar cifras. Muestra "—" cuando un dato aún no ha sido confirmado.
+ */
+const stats = [
+  { value: '—', label: 'Años de experiencia', note: 'En proceso de verificación formal' },
+  { value: '—', label: 'Empresas asesoradas', note: 'Consolidación de auditoría' },
+  { value: '—', label: 'Trabajadores protegidos', note: 'Registro de gestión preventiva' },
+  { value: '5.0', label: 'Calificación promedio', note: 'Basada en opiniones verificadas' },
+];
+---
+
+<section class="relative py-16 bg-dark-base border-y border-white/[0.06] overflow-hidden" id="confianza">
+  <div class="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 scroll-reveal">
+      {stats.map((stat) => (
+        <div class="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.08] backdrop-blur-xl text-center group hover:border-brand-yellow/30 transition-all duration-300">
+          <span class="block font-mono text-3xl sm:text-5xl font-extrabold text-brand-yellow mb-2 tracking-tight">
+            {stat.value}
+          </span>
+          <span class="block text-xs sm:text-sm font-semibold text-slate-300 mb-1">
+            {stat.label}
+          </span>
+          <span class="block font-mono text-[11px] text-slate-500">
+            {stat.note}
+          </span>
+        </div>
+      ))}
+    </div>
+
+    <p class="mt-8 text-center text-xs font-mono text-slate-500 max-w-xl mx-auto scroll-reveal">
+      Transparencia FOSST: Las métricas cuantitativas se actualizan únicamente con respaldo documental auditado.
+    </p>
+  </div>
+</section>

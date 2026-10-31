@@ -1,0 +1,118 @@
+---
+/**
+ * Componente Logo FOSST
+ * Casco amarillo sobre cabeza de perfil como la 'O' de F-O-SST
+ * variant: 'light' (para fondos oscuros/azul) | 'dark' (para fondos claros)
+ */
+interface Props {
+  variant?: 'light' | 'dark';
+  height?: number;
+  showSubtitle?: boolean;
+  class?: string;
+}
+
+const {
+  variant = 'light',
+  height = 42,
+  showSubtitle = false,
+  class: className = ''
+} = Astro.props;
+
+const textColor = variant === 'light' ? 'var(--blanco-calido, #F7F7F2)' : 'var(--azul-marino, #001A4D)';
+const headColor = variant === 'light' ? 'var(--blanco-calido, #F7F7F2)' : 'var(--azul-marino, #001A4D)';
+const helmetColor = 'var(--amarillo-casco, #FFC800)';
+---
+
+<div class={`fosst-logo-wrapper ${className}`} style={`--logo-text-color: ${textColor};`}>
+  <svg
+    height={height}
+    viewBox="0 0 320 80"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    role="img"
+    aria-label="Logo FOSST - Seguridad y Salud en el Trabajo"
+    class="fosst-logo-svg"
+  >
+    <!-- Letra F -->
+    <path
+      d="M20 18 H52 V27 H33 V42 H49 V51 H33 V72 H20 Z"
+      fill={textColor}
+    />
+
+    <!-- Elemento 'O': Silueta de cabeza de perfil + Casco amarillo de seguridad -->
+    <g transform="translate(68, 8)">
+      <!-- Casco de seguridad industrial (amarillo con visera y nervadura) -->
+      <path
+        d="M6 31 C6 18 18 7 42 7 C64 7 76 18 78 31 C78 31 84 31 84 33 C84 35 76 37 68 37 L12 37 C5 37 0 35 0 33 C0 31 6 31 6 31 Z"
+        fill={helmetColor}
+      />
+      <!-- Reflejo/nervadura superior del casco -->
+      <path
+        d="M22 17 C28 11 38 9 52 11 C42 10 32 12 26 18 Z"
+        fill="rgba(255, 255, 255, 0.45)"
+      />
+      <path
+        d="M10 31 C22 30 58 30 74 31 C68 28 58 24 42 24 C24 24 16 28 10 31 Z"
+        fill="rgba(0, 0, 0, 0.08)"
+      />
+
+      <!-- Silueta de la cabeza de perfil mirando hacia la derecha -->
+      <path
+        d="M14 38 C14 38 14 54 26 62 C29 64 26 73 24 78 L38 78 C42 72 45 66 45 66 C45 66 58 66 61 58 C62 55 58 52 57 52 C61 51 68 47 67 44 C65 41 59 42 58 42 C60 40 64 38 64 38 Z"
+        fill={headColor}
+      />
+    </g>
+
+    <!-- Letra S primera -->
+    <path
+      d="M172 26 C166 20 156 18 147 22 C140 25 137 32 140 38 C143 44 153 46 161 49 C172 52 178 57 177 64 C175 73 165 77 154 76 C143 75 136 69 133 63 L142 57 C144 61 149 66 155 67 C161 68 166 66 166 61 C166 56 160 54 152 51 C141 48 132 44 131 34 C130 25 138 18 148 16 C159 14 168 18 174 24 Z"
+      fill={textColor}
+    />
+
+    <!-- Letra S segunda -->
+    <path
+      d="M225 26 C219 20 209 18 200 22 C193 25 190 32 193 38 C196 44 206 46 214 49 C225 52 231 57 230 64 C228 73 218 77 207 76 C196 75 189 69 186 63 L195 57 C197 61 202 66 208 67 C214 68 219 66 219 61 C219 56 213 54 205 51 C194 48 185 44 184 34 C183 25 191 18 201 16 C212 14 221 18 227 24 Z"
+      fill={textColor}
+    />
+
+    <!-- Letra T -->
+    <path
+      d="M242 18 H284 V27 H269 V72 H257 V27 H242 Z"
+      fill={textColor}
+    />
+  </svg>
+
+  {showSubtitle && (
+    <span class="fosst-logo-descriptor">
+      Formación en Seguridad y Salud en el Trabajo
+    </span>
+  )}
+</div>
+
+<style>
+  .fosst-logo-wrapper {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1;
+    user-select: none;
+  }
+  .fosst-logo-svg {
+    display: block;
+    width: auto;
+    max-height: 100%;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.12));
+    transition: transform var(--duration-hover) ease;
+  }
+  .fosst-logo-descriptor {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--logo-text-color);
+    opacity: 0.85;
+    margin-top: 3px;
+    padding-left: 2px;
+  }
+</style>
