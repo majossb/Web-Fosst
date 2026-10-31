@@ -14,5 +14,9 @@
   "dependencies": {
     "astro": "^7.4.2",
     "gsap": "^3.15.0"
+  },
+  "devDependencies": {
+    "@phosphor-icons/core": "^2.1.1",
+    "puppeteer-core": "^25.16.0"
   }
 }

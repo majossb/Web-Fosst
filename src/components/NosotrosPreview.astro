@@ -1,52 +1,52 @@
 ---
 // src/components/NosotrosPreview.astro
 // FOSST Consultoría Integral — Sección "Nosotros" del Landing Page
-// Inspiración y dirección de arte:
-// - Composición en 2 grandes espacios basada en la maqueta de referencia de FOSST
-// - Lado izquierdo: Presentación editorial de FOSST con tipografía serif protagonista y detalles sutiles
-// - Lado derecho: Mascota oficial como anfitriona y 4 tarjetas interactivas con volteo 3D (Lupi style)
-// - Descubrimiento manual (sin auto-volteo), accesible por teclado y adaptable a dispositivos táctiles
+// Rediseño editorial y abanico interactivo de atributos diferenciales
+import usersThree from '../assets/icons/users-three-duotone.svg?raw';
+import scales from '../assets/icons/scales-duotone.svg?raw';
+import handshake from '../assets/icons/handshake-duotone.svg?raw';
+import heart from '../assets/icons/heart-duotone.svg?raw';
 
 const caracteristicas = [
   {
-    num: '01',
     id: 'equipo',
     titulo: 'Equipo multidisciplinario',
     frenteDesc: 'Expertos en SST, gestión empresarial y más.',
-    reversoTexto: 'Integramos conocimientos de distintas disciplinas para ofrecer una visión completa de las necesidades de tu organización.',
-    reversoPill: 'Visión 360° Integral',
-    iconSrc: '/images/illustrations/icon_equipo_clean.png',
-    iconAlt: 'Ilustración de equipo multidisciplinario de profesionales trabajando juntos',
+    reversoTexto: 'Profesionales de diferentes áreas que integran conocimientos para ofrecer un acompañamiento completo a las organizaciones.',
+    iconSvg: usersThree,
+    hasSpark: true,
+    rot: -8,
+    dy: 18,
   },
   {
-    num: '02',
     id: 'cumplimiento',
     titulo: 'Cumplimiento normativo',
     frenteDesc: 'Te guiamos para cumplir con la normativa vigente.',
-    reversoTexto: 'Te orientamos en el cumplimiento de los requisitos legales aplicables a tu empresa, con acompañamiento técnico.',
-    reversoPill: 'Blindaje Técnico & Legal',
-    iconSrc: '/images/illustrations/icon_cumplimiento_clean.png',
-    iconAlt: 'Ilustración de balanza de cumplimiento y justicia normativa',
+    reversoTexto: 'Orientación técnica para ayudar a las empresas a cumplir sus obligaciones legales y normativas.',
+    iconSvg: scales,
+    hasSpark: false,
+    rot: -5,
+    dy: 6,
   },
   {
-    num: '03',
     id: 'soluciones',
     titulo: 'Soluciones a la medida de mipymes',
     frenteDesc: 'Estrategias efectivas para tu empresa.',
-    reversoTexto: 'Diseñamos alternativas acordes con la realidad, los recursos y las necesidades de cada empresa.',
-    reversoPill: 'Cero Formatos Muertos',
-    iconSrc: '/images/illustrations/icon_soluciones_clean.png',
-    iconAlt: 'Ilustración de alianza estratégica y soluciones proporcionales',
+    reversoTexto: 'Acompañamiento y estrategias adaptadas a las necesidades y posibilidades de cada empresa.',
+    iconSvg: handshake,
+    hasSpark: false,
+    rot: -1,
+    dy: -4,
   },
   {
-    num: '04',
     id: 'cercania',
     titulo: 'Cercanía humana',
     frenteDesc: 'Estamos contigo en cada paso.',
-    reversoTexto: 'Construimos relaciones de confianza y acompañamos a nuestros clientes en cada etapa del proceso.',
-    reversoPill: 'Aliado Permanente',
-    iconSrc: '/images/illustrations/icon_cercania_clean.png',
-    iconAlt: 'Ilustración de corazón y cercanía humana',
+    reversoTexto: 'Un acompañamiento cercano, en el que escuchamos, comprendemos y trabajamos junto a nuestros clientes.',
+    iconSvg: heart,
+    hasSpark: true,
+    rot: 5,
+    dy: 12,
   },
 ];
 ---
@@ -130,98 +130,78 @@ const caracteristicas = [
     </div>
 
     <!-- ════════════════════════════════════════════════════════════════
-         LADO DERECHO: MASCOTA ANFITRIONA + 4 TARJETAS CON VOLTEO 3D
+         LADO DERECHO: ESCENARIO INTERACTIVO (TARJETAS EN ABANICO)
          ════════════════════════════════════════════════════════════════ -->
     <div class="nos-interactive-stage">
       
-      <!-- Ventana Orgánica de Fondo con Mascota Anfitriona y Globo de Diálogo -->
-      <div class="mascot-host-header reveal-node" data-reveal-delay="200">
-        <picture>
-          <source srcset="/images/illustrations/mascot_host_stage.png" type="image/png" />
-          <img
-            src="/images/illustrations/mascot_host_stage.png"
-            alt="Mascota oficial FOSST como anfitriona presentando los cuatro pilares: ¡Trabajemos juntos por un entorno más seguro!"
-            class="mascot-stage-illustration"
-            width="535"
-            height="340"
-            loading="lazy"
-            decoding="async"
-          />
-        </picture>
+      <!-- Placeholder de cabecera (preparada para las capas de Mascota en Etapa 2) -->
+      <div class="mascot-stage-anchor reveal-node" data-reveal-delay="200">
+        <!-- Espacio reservado para la mascota asomada -->
       </div>
 
-      <!-- Cuadrícula de 4 Tarjetas con Volteo 3D Interactivo (Inspiración Lupi) -->
-      <div 
-        class="nos-cards-grid" 
+      <!-- Abanico de 4 Tarjetas Interactivas con Volteo 3D Accesible -->
+      <ul 
+        class="cards-fan" 
         role="region" 
-        aria-label="Los cuatro aspectos que definen a FOSST. Pasa el cursor o toca cada tarjeta para descubrir más información"
+        aria-label="Los cuatro aspectos diferenciales que definen a FOSST"
       >
         {caracteristicas.map((item, idx) => (
-          <div 
-            class={`flip-card-wrapper card-step-${idx + 1} reveal-node`}
-            data-reveal-delay={320 + idx * 90}
-            tabindex="0"
-            role="button"
-            aria-expanded="false"
-            aria-label={`Tarjeta ${item.num}: ${item.titulo}. Toca o presiona Enter para voltear`}
-            data-card-id={item.id}
+          <li 
+            class="flip-card-slot reveal-node" 
+            data-reveal-delay={300 + idx * 80}
           >
-            <div class="flip-card-inner">
-              
-              <!-- ── FRENTE DE LA TARJETA ── -->
-              <div class="flip-card-face flip-face-front">
-                <div class="card-icon-container">
-                  <img
-                    src={item.iconSrc}
-                    alt={item.iconAlt}
-                    class="card-illustration-img"
-                    width="70"
-                    height="70"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <h3 class="card-front-title">{item.titulo}</h3>
-                <p class="card-front-summary">{item.frenteDesc}</p>
-                <div class="card-flip-prompt" aria-hidden="true">
-                  <span class="prompt-star">✦</span>
-                  <span class="prompt-text">Descubrir</span>
-                </div>
-              </div>
-
-              <!-- ── REVERSO DE LA TARJETA (DESCUBRIMIENTO 3D) ── -->
-              <div class="flip-card-face flip-face-back">
-                <div class="back-pill-header">
-                  <span class="back-num-tag">{item.num}</span>
-                  <span class="back-title-pill">{item.reversoPill}</span>
-                </div>
+            <div 
+              class="flip-card" 
+              data-flipped="false"
+              data-card-id={item.id}
+              style={`--rot: ${item.rot}deg; --dy: ${item.dy}px;`}
+            >
+              <div class="flip-inner">
                 
-                <div class="back-quote-container">
-                  <span class="quote-symbol" aria-hidden="true">«</span>
-                  <p class="back-quote-text">{item.reversoTexto}</p>
-                  <span class="quote-symbol quote-close" aria-hidden="true">»</span>
+                <!-- ── CARA FRONTAL ── -->
+                <div class="face front" id={`front-${item.id}`}>
+                  <div class="card-icon-wrap">
+                    <span class="card-icon" aria-hidden="true" set:html={item.iconSvg} />
+                    {item.hasSpark && (
+                      <svg class="icon-sparkle" width="22" height="22" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                        <line x1="10" y1="2" x2="10" y2="6" stroke="#FFC800" stroke-width="2.2" stroke-linecap="round" />
+                        <line x1="16" y1="4" x2="13" y2="7" stroke="#FFC800" stroke-width="2.2" stroke-linecap="round" />
+                        <line x1="18" y1="10" x2="14" y2="10" stroke="#FFC800" stroke-width="2.2" stroke-linecap="round" />
+                      </svg>
+                    )}
+                  </div>
+                  <h3 class="card-front-title">{item.titulo}</h3>
+                  <p class="card-front-summary">{item.frenteDesc}</p>
+                  
+                  <div class="card-bottom-accent" aria-hidden="true">
+                    <span class="touch-hint">Toca para ver más</span>
+                    <span class="accent-line"></span>
+                  </div>
                 </div>
 
-                <div class="back-flip-return" aria-hidden="true">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="1 4 1 10 7 10"></polyline>
-                    <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
-                  </svg>
-                  <span>Volver</span>
+                <!-- ── CARA POSTERIOR (REVERSO LIMPIO Y ESTRUCTURADO) ── -->
+                <div class="face back" id={`back-${item.id}`} aria-hidden="true" inert>
+                  <span class="back-star" aria-hidden="true">✦</span>
+                  <h3 class="card-back-title">{item.titulo}</h3>
+                  <span class="back-divider" aria-hidden="true"></span>
+                  <p class="back-desc">{item.reversoTexto}</p>
                 </div>
+
               </div>
 
+              <!-- Botón de volteo accesible que cubre la tarjeta -->
+              <button 
+                type="button" 
+                class="flip-toggle" 
+                aria-expanded="false" 
+                aria-controls={`back-${item.id}`}
+              >
+                <span class="sr-only">Ver descripción de {item.titulo}</span>
+              </button>
             </div>
-          </div>
+          </li>
         ))}
-      </div>
-
-      <!-- Indicador sutil de 3 puntos (detalle estético de la referencia) -->
-      <div class="stage-footer-dots" aria-hidden="true">
-        <span class="foot-dot active"></span>
-        <span class="foot-dot"></span>
-        <span class="foot-dot"></span>
-      </div>
+      </ul>
 
     </div>
 
@@ -234,20 +214,20 @@ const caracteristicas = [
 </section>
 
 <!-- ════════════════════════════════════════════════════════════════
-     ESTILOS CSS — EDITORIAL, TARJETAS 3D Y DETALLES ORGÁNICOS
+     ESTILOS CSS — EDITORIAL, ABANICO DE TARJETAS Y VOLTEO 3D
      ════════════════════════════════════════════════════════════════ -->
 <style>
   /* ── Variables de la Sección Editorial FOSST ── */
   .nos-section {
-    --nos-canvas-bg: #FEF9F1; /* Blanco cálido marfil de la referencia */
-    --nos-card-bg: #FFFFFF;
+    --nos-canvas-bg: #FEF9F1;
+    --nos-card-bg: #FBF7EF;
     --nos-card-back-bg: #FAF7F0;
     --nos-ink-navy: #001A4D;
-    --nos-ink-body: #3E475A;
+    --nos-ink-body: #3A4256;
     --nos-ink-muted: #6C7589;
     --nos-gold-safety: #FFC800;
-    --nos-gold-dark: #D99B00;
-    --nos-border-subtle: rgba(0, 26, 77, 0.08);
+    --nos-border-subtle: rgba(0, 26, 77, 0.06);
+    --nos-serif: 'Instrument Serif', 'Playfair Display', Georgia, serif;
 
     position: relative;
     z-index: 6; /* Por encima del Hero fijo */
@@ -315,23 +295,16 @@ const caracteristicas = [
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr;
-    gap: clamp(3rem, 5vw, 5rem);
+    gap: clamp(2.5rem, 4.5vw, 4rem);
     align-items: center;
     padding-bottom: clamp(4.5rem, 7vw, 7.5rem);
     z-index: 2;
   }
 
-  @media (min-width: 1040px) {
+  @media (min-width: 1180px) {
     .nos-layout-grid {
-      grid-template-columns: 0.92fr 1.35fr;
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
       gap: 3.5rem;
-    }
-  }
-
-  @media (min-width: 1240px) {
-    .nos-layout-grid {
-      grid-template-columns: 0.9fr 1.4fr;
-      gap: 4.5rem;
     }
   }
 
@@ -380,12 +353,12 @@ const caracteristicas = [
     letter-spacing: 0.05em;
   }
 
-  /* Gran Titular Editorial con Playfair Display */
+  /* Gran Titular Editorial */
   .nos-main-title {
     margin: 0 0 1.75rem;
-    font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
+    font-family: var(--nos-serif);
     font-size: clamp(2.4rem, 4.5vw, 3.85rem);
-    font-weight: 700;
+    font-weight: 400;
     line-height: 1.1;
     letter-spacing: -0.025em;
     color: var(--nos-ink-navy);
@@ -415,10 +388,10 @@ const caracteristicas = [
   }
 
   .title-serif-italic {
-    font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
+    font-family: var(--nos-serif);
     font-style: italic;
-    font-weight: 600;
-    color: #123377;
+    font-weight: 400;
+    color: #1F4FA3;
     position: relative;
   }
 
@@ -462,7 +435,7 @@ const caracteristicas = [
     transition: color 0.2s, border-color 0.2s, transform 0.2s;
   }
   .nos-story-link:hover {
-    color: #123377;
+    color: #1F4FA3;
     border-color: #FFD21A;
     transform: translateX(3px);
   }
@@ -474,7 +447,7 @@ const caracteristicas = [
   }
 
   /* ════════════════════════════════════════════════════════════════
-     LADO DERECHO: MASCOTA ANFITRIONA + 4 TARJETAS 3D FLIP
+     LADO DERECHO: ESCENARIO INTERACTIVO Y ABANICO DE TARJETAS
      ════════════════════════════════════════════════════════════════ */
   .nos-interactive-stage {
     position: relative;
@@ -483,262 +456,279 @@ const caracteristicas = [
     flex-direction: column;
     align-items: center;
     z-index: 3;
+    isolation: isolate;
   }
 
-  /* Ventana con Mascota Anfitriona y Globo de Diálogo */
-  .mascot-host-header {
+  .mascot-stage-anchor {
     position: relative;
     width: 100%;
-    max-width: 535px;
-    margin: 0 auto -42px; /* Las tarjetas se solapan ligeramente debajo de las patas */
-    z-index: 1;
+    max-width: 360px;
+    height: 10px; /* Placeholder para Etapa 2 */
+    margin: 0 auto;
     pointer-events: none;
+  }
+
+  /* ── Lista de Tarjetas en Abanico ── */
+  .cards-fan {
+    list-style: none;
+    margin: 0;
+    padding: 1.5rem 0 0.5rem;
+    width: 100%;
     display: flex;
-    justify-content: flex-end;
-  }
-
-  .mascot-stage-illustration {
-    width: 100%;
-    max-width: 480px;
-    height: auto;
-    display: block;
-    object-fit: contain;
-    filter: drop-shadow(0 12px 24px rgba(0, 26, 77, 0.1));
-  }
-
-  /* ── Cuadrícula de 4 Tarjetas ── */
-  .nos-cards-grid {
+    justify-content: center;
+    align-items: flex-end;
     position: relative;
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.15rem;
-    z-index: 2;
+    z-index: 3;
   }
 
-  /* Alturas y desfasajes sutiles de la referencia (stepping wave) */
-  @media (min-width: 1040px) {
-    .card-step-1 { transform: translateY(18px); }
-    .card-step-2 { transform: translateY(6px); }
-    .card-step-3 { transform: translateY(0px); }
-    .card-step-4 { transform: translateY(14px); }
-  }
-
-  /* ════════════════════════════════════════════════════════════════
-     INTERACCIÓN 3D FLIP (INSPIRADA EN LUPI)
-     ════════════════════════════════════════════════════════════════ */
-  .flip-card-wrapper {
+  /* ── Tarjeta individual en Abanico ── */
+  .flip-card-slot {
+    position: relative;
+    margin-left: clamp(-16px, -1.2vw, -8px);
     perspective: 1100px;
-    outline: none;
-    cursor: pointer;
-    min-height: 290px;
+  }
+  .flip-card-slot:first-child {
+    margin-left: 0;
   }
 
-  .flip-card-inner {
+  .flip-card {
     position: relative;
-    width: 100%;
-    height: 100%;
+    width: clamp(174px, 13.5vw, 205px);
     min-height: 290px;
-    transform-style: preserve-3d;
-    transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
-    border-radius: 22px;
+    height: 290px;
+    transform: translateY(var(--dy, 0px)) rotate(var(--rot, 0deg));
+    transform-origin: center bottom;
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), z-index 0.3s ease;
+    will-change: transform;
+    border-radius: 24px;
   }
 
-  /* Volteo en Desktop al pasar el ratón o con focus de teclado */
+  /* Al interactuar (hover, foco o flipped): se endereza y sube ~8-10px pasando sobre vecinas */
   @media (hover: hover) and (pointer: fine) {
-    .flip-card-wrapper:hover .flip-card-inner,
-    .flip-card-wrapper:focus-visible .flip-card-inner {
-      transform: rotateY(180deg) translateY(-5px);
-      box-shadow: 0 22px 42px -12px rgba(0, 26, 77, 0.2);
+    .flip-card:hover {
+      transform: translateY(-8px) rotate(0deg);
+      z-index: 10;
     }
   }
 
-  /* Volteo activo en móvil por toque o vía JavaScript */
-  .flip-card-wrapper.is-flipped .flip-card-inner {
-    transform: rotateY(180deg) translateY(-5px);
-    box-shadow: 0 22px 42px -12px rgba(0, 26, 77, 0.2);
+  .flip-card:focus-within,
+  .flip-card[data-flipped="true"] {
+    transform: translateY(-8px) rotate(0deg);
+    z-index: 10;
   }
 
-  /* Caras de la Tarjeta */
-  .flip-card-face {
+  /* ── Contenedor 3D Flip ── */
+  .flip-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    border-radius: 24px;
+    box-shadow: 0 18px 36px -14px rgba(0, 26, 77, 0.18);
+  }
+
+  .flip-card:hover .flip-inner,
+  .flip-card[data-flipped="true"] .flip-inner {
+    box-shadow: 0 24px 44px -12px rgba(0, 26, 77, 0.24);
+  }
+
+  .flip-card[data-flipped="true"] .flip-inner {
+    transform: rotateY(180deg);
+  }
+
+  /* ── Caras Frontal y Posterior ── */
+  .face {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
-    border-radius: 22px;
+    border-radius: 24px;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    padding: 1.5rem 1.15rem 1.25rem;
-    box-sizing: border-box;
-  }
-
-  /* ── CARA FRONTAL ── */
-  .flip-face-front {
-    background: var(--nos-card-bg);
-    border: 1px solid var(--nos-border-subtle);
-    box-shadow: 0 12px 28px -10px rgba(0, 26, 77, 0.08), 0 2px 6px rgba(0, 26, 77, 0.03);
     align-items: center;
     text-align: center;
-    z-index: 2;
-    transform: rotateY(0deg);
-    justify-content: flex-start;
   }
 
-  .card-icon-container {
-    height: 80px;
+  /* Frente */
+  .face.front {
+    background: var(--nos-card-bg);
+    border: 1px solid var(--nos-border-subtle);
+    padding: 1.5rem 1.15rem 1.25rem;
+    z-index: 2;
+    transform: rotateY(0deg);
+  }
+
+  .card-icon-wrap {
+    position: relative;
+    width: 84px;
+    height: 84px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 0.85rem;
+    margin-bottom: 0.65rem;
   }
 
-  .card-illustration-img {
-    max-height: 72px;
-    width: auto;
-    object-fit: contain;
-    filter: drop-shadow(0 4px 8px rgba(0, 26, 77, 0.08));
-    transition: transform 0.3s ease;
+  .card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .flip-card-wrapper:hover .card-illustration-img {
+
+  :global(.card-icon svg) {
+    width: 80px;
+    height: 80px;
+    color: #001A4D;
+    display: block;
+  }
+
+  :global(.card-icon svg path[opacity]) {
+    fill: #FFC800;
+    opacity: 1 !important;
+  }
+
+  .flip-card:hover .card-icon,
+  .flip-card[data-flipped="true"] .card-icon {
     transform: scale(1.06);
   }
 
+  .icon-sparkle {
+    position: absolute;
+    top: -2px;
+    right: -4px;
+    pointer-events: none;
+    animation: sparkPulse 3.5s ease-in-out infinite;
+  }
+
+  @keyframes sparkPulse {
+    0%, 100% { opacity: 0.85; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.12); }
+  }
+
   .card-front-title {
-    margin: 0 0 0.55rem;
-    font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
-    font-size: 1.08rem;
-    font-weight: 700;
-    line-height: 1.25;
+    margin: 0 0 0.45rem;
+    font-family: var(--nos-serif);
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 1.2;
     color: var(--nos-ink-navy);
   }
 
   .card-front-summary {
     margin: 0 0 auto;
     font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
-    font-size: 0.8rem;
+    font-size: 0.84rem;
     line-height: 1.45;
-    color: var(--nos-ink-muted);
+    color: var(--nos-ink-body);
   }
 
-  .card-flip-prompt {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    padding: 0.25rem 0.65rem;
-    margin-top: 0.85rem;
-    background: #FAF8F2;
-    border-radius: 9999px;
-    font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
-    font-size: 0.68rem;
-    font-weight: 700;
-    color: var(--nos-ink-navy);
-    border: 1px solid rgba(0, 26, 77, 0.06);
-  }
-  .prompt-star {
-    color: var(--nos-gold-safety);
-    font-size: 0.72rem;
-  }
-
-  /* ── CARA POSTERIOR (REVERSO) ── */
-  .flip-face-back {
-    background: var(--nos-card-back-bg);
-    border: 1.5px solid rgba(0, 26, 77, 0.12);
-    box-shadow: 0 16px 36px -12px rgba(0, 26, 77, 0.15);
-    color: var(--nos-ink-navy);
-    transform: rotateY(180deg);
+  .card-bottom-accent {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    text-align: center;
-  }
-
-  .back-pill-header {
-    display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 0.4rem;
+    margin-top: 0.65rem;
   }
 
-  .back-num-tag {
-    font-family: var(--font-serif, 'Playfair Display', serif);
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: var(--nos-gold-dark);
-  }
-
-  .back-title-pill {
+  .touch-hint {
+    display: none;
     font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
-    font-size: 0.68rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.2rem 0.55rem;
-    background: #FFFFFF;
-    color: var(--nos-ink-navy);
-    border-radius: 9999px;
-    border: 1px solid rgba(0, 26, 77, 0.08);
+    font-size: 0.7rem;
+    color: var(--nos-ink-muted);
+    margin-bottom: 0.35rem;
+    font-weight: 500;
   }
 
-  .back-quote-container {
-    position: relative;
-    padding: 0.5rem 0.2rem;
-    margin: auto 0;
+  @media (hover: none) {
+    .touch-hint {
+      display: block;
+    }
   }
 
-  .quote-symbol {
-    font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
-    font-size: 1.8rem;
-    line-height: 1;
+  .accent-line {
+    width: 32px;
+    height: 3px;
+    background: var(--nos-gold-safety);
+    border-radius: 2px;
+  }
+
+  /* Reverso */
+  .face.back {
+    background: var(--nos-card-back-bg);
+    border: 1.5px solid rgba(0, 26, 77, 0.1);
+    transform: rotateY(180deg);
+    padding: 1.6rem 1.25rem 1.4rem;
+    justify-content: center;
+  }
+
+  .back-star {
+    font-size: 0.95rem;
     color: var(--nos-gold-safety);
+    margin-bottom: 0.5rem;
     display: block;
-    margin-bottom: -0.25rem;
-  }
-  .quote-close {
-    margin-top: -0.25rem;
-    margin-bottom: 0;
+    line-height: 1;
   }
 
-  .back-quote-text {
+  .card-back-title {
+    margin: 0 0 0.5rem;
+    font-family: var(--nos-serif);
+    font-size: 1.15rem;
+    font-weight: 400;
+    line-height: 1.22;
+    color: var(--nos-ink-navy);
+  }
+
+  .back-divider {
+    width: 28px;
+    height: 2.5px;
+    background: var(--nos-gold-safety);
+    border-radius: 2px;
+    margin-bottom: 0.85rem;
+    display: block;
+  }
+
+  .back-desc {
     margin: 0;
     font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
-    font-size: 0.85rem;
-    line-height: 1.55;
-    font-weight: 600;
-    color: var(--nos-ink-navy);
+    font-size: 0.86rem;
+    line-height: 1.52;
+    color: var(--nos-ink-body);
   }
 
-  .back-flip-return {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.35rem;
-    font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
-    font-size: 0.68rem;
-    font-weight: 700;
-    color: var(--nos-ink-muted);
+  /* Botón interactivo invisible para accesibilidad y clics */
+  .flip-toggle {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: 24px;
+    padding: 0;
+    margin: 0;
   }
 
-  /* ── Puntos de Paginación / UI Footer ── */
-  .stage-footer-dots {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.65rem;
-    margin-top: 1.75rem;
+  .flip-toggle:focus-visible {
+    outline: 3px solid var(--nos-gold-safety);
+    outline-offset: 4px;
   }
-  .foot-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #D9DCE2;
-    transition: background 0.2s, transform 0.2s;
-  }
-  .foot-dot.active {
-    background: var(--nos-gold-safety);
-    box-shadow: 0 0 8px rgba(255, 200, 0, 0.6);
-    transform: scale(1.15);
+
+  /* Utilidad sr-only */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 
   /* ════════════════════════════════════════════════════════════════
@@ -769,46 +759,65 @@ const caracteristicas = [
   /* ════════════════════════════════════════════════════════════════
      RESPONSIVIDAD Y DISPOSITIVOS MÓVILES
      ════════════════════════════════════════════════════════════════ */
-  @media (max-width: 1039px) {
-    .nos-cards-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.25rem;
+  /* Cuadrícula 2x2 entre 760px y 1179px */
+  @media (max-width: 1179px) and (min-width: 760px) {
+    .cards-fan {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(220px, 270px));
+      gap: 1.35rem;
+      justify-content: center;
+      padding-top: 1rem;
     }
-    .card-step-1, .card-step-2, .card-step-3, .card-step-4 {
+    .flip-card-slot {
+      margin-left: 0;
+    }
+    .flip-card {
+      width: 100%;
+      height: 290px;
       transform: none !important;
     }
-    .mascot-host-header {
-      margin-bottom: -20px;
+    .flip-card:hover,
+    .flip-card:focus-within,
+    .flip-card[data-flipped="true"] {
+      transform: translateY(-6px) !important;
+      z-index: 5;
     }
   }
 
-  @media (max-width: 640px) {
+  /* Columna única en pantallas menores a 760px */
+  @media (max-width: 759px) {
     .nos-section {
       margin-top: -90vh;
       border-radius: 28px 28px 0 0;
       padding-top: 4.5rem;
     }
-    .nos-cards-grid {
+    .cards-fan {
+      display: grid;
       grid-template-columns: 1fr;
-      gap: 1.15rem;
       max-width: 340px;
       margin: 0 auto;
+      gap: 1.15rem;
+      padding-top: 0.5rem;
     }
-    .flip-card-wrapper {
-      min-height: 270px;
+    .flip-card-slot {
+      margin-left: 0;
     }
-    .flip-card-inner {
-      min-height: 270px;
+    .flip-card {
+      width: 100%;
+      height: 280px;
+      transform: none !important;
+    }
+    .flip-card:hover,
+    .flip-card:focus-within,
+    .flip-card[data-flipped="true"] {
+      transform: translateY(-4px) !important;
+      z-index: 5;
     }
     .nos-editorial-side {
       text-align: left;
     }
     .nos-dot-matrix-left {
       display: none;
-    }
-    .mascot-host-header {
-      margin-bottom: -10px;
-      max-width: 320px;
     }
   }
 
@@ -825,20 +834,38 @@ const caracteristicas = [
       transform: none !important;
       transition: none !important;
     }
-    .flip-card-inner {
+    .flip-card {
+      transform: none !important;
       transition: none !important;
     }
-    .flip-card-wrapper:hover .flip-card-inner,
-    .flip-card-wrapper.is-flipped .flip-card-inner {
+    .flip-inner {
+      transition: none !important;
       transform: none !important;
     }
-    .flip-card-wrapper.is-flipped .flip-face-front {
-      opacity: 0 !important;
+    .flip-card[data-flipped="true"] .flip-inner {
+      transform: none !important;
+    }
+    .face {
+      transition: opacity 150ms ease !important;
+    }
+    .flip-card[data-flipped="false"] .face.front {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .flip-card[data-flipped="false"] .face.back {
+      opacity: 0;
       pointer-events: none;
-    }
-    .flip-card-wrapper.is-flipped .flip-face-back {
       transform: none !important;
-      opacity: 1 !important;
+    }
+    .flip-card[data-flipped="true"] .face.front {
+      opacity: 0;
+      pointer-events: none;
+      transform: none !important;
+    }
+    .flip-card[data-flipped="true"] .face.back {
+      opacity: 1;
+      pointer-events: auto;
+      transform: none !important;
     }
   }
 </style>
@@ -850,7 +877,7 @@ const caracteristicas = [
 </noscript>
 
 <!-- ════════════════════════════════════════════════════════════════
-     LÓGICA CLIENTE — VOLTEO 3D EN DISPOSITIVOS TÁCTILES Y TECLADO
+     LÓGICA CLIENTE — ACCESIBILIDAD, VOLTEO FLIP Y GESTIÓN DE DISPOSITIVOS
      ════════════════════════════════════════════════════════════════ -->
 <script>
   (() => {
@@ -877,36 +904,94 @@ const caracteristicas = [
             revealElements();
           }
         },
-        { threshold: 0.15 }
+        { threshold: 0.12 }
       );
       observer.observe(nosSection);
     }
 
-    // 2. INTERACCIÓN DE VOLTEO 3D EN DISPOSITIVOS TÁCTILES Y TECLADO (LUPI STYLE)
-    const flipCards = nosSection.querySelectorAll<HTMLElement>('.flip-card-wrapper');
+    // 2. INTERACCIÓN DE VOLTEO 3D ACCESIBLE (MOUSE, TÁCTIL Y TECLADO)
+    const cards = Array.from(nosSection.querySelectorAll<HTMLElement>('.flip-card'));
+    let lastPointerType = '';
 
-    flipCards.forEach((card) => {
-      const toggleCard = () => {
-        const isFlipped = card.classList.contains('is-flipped');
-        
-        // Alternar estado de la tarjeta tocada
-        card.classList.toggle('is-flipped', !isFlipped);
-        card.setAttribute('aria-expanded', String(!isFlipped));
-      };
+    const setCardFlipped = (card: HTMLElement, shouldFlip: boolean) => {
+      card.dataset.flipped = String(shouldFlip);
+      const button = card.querySelector<HTMLButtonElement>('.flip-toggle');
+      if (button) {
+        button.setAttribute('aria-expanded', String(shouldFlip));
+      }
+      const front = card.querySelector<HTMLElement>('.face.front');
+      const back = card.querySelector<HTMLElement>('.face.back');
+      if (front && back) {
+        if (shouldFlip) {
+          front.setAttribute('aria-hidden', 'true');
+          front.setAttribute('inert', '');
+          back.removeAttribute('aria-hidden');
+          back.removeAttribute('inert');
+        } else {
+          front.removeAttribute('aria-hidden');
+          front.removeAttribute('inert');
+          back.setAttribute('aria-hidden', 'true');
+          back.setAttribute('inert', '');
+        }
+      }
+    };
 
-      // Tocar en móvil / clic manual
-      card.addEventListener('click', (e) => {
-        // En dispositivos móviles o clics directos
-        toggleCard();
-      });
+    const closeAllCards = () => {
+      cards.forEach((c) => setCardFlipped(c, false));
+    };
 
-      // Accesibilidad con teclado (Enter y Espacio)
-      card.addEventListener('keydown', (e: KeyboardEvent) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          toggleCard();
+    // Registrar el último tipo de puntero (mouse vs touch)
+    document.addEventListener('pointerdown', (e) => {
+      lastPointerType = e.pointerType;
+      // Si se toca fuera de las tarjetas en táctil, cerrar
+      if (lastPointerType === 'touch') {
+        const target = e.target as HTMLElement | null;
+        if (!target?.closest('.cards-fan')) {
+          closeAllCards();
+        }
+      }
+    });
+
+    cards.forEach((card) => {
+      const button = card.querySelector<HTMLButtonElement>('.flip-toggle');
+
+      // Interacción con Ratón: pointerenter / pointerleave
+      card.addEventListener('pointerenter', (e) => {
+        if (e.pointerType === 'mouse') {
+          setCardFlipped(card, true);
         }
       });
+
+      card.addEventListener('pointerleave', (e) => {
+        if (e.pointerType === 'mouse') {
+          setCardFlipped(card, false);
+        }
+      });
+
+      // Interacción con Botón (Táctil o Teclado)
+      if (button) {
+        button.addEventListener('click', (e) => {
+          // Si el clic fue emitido tras hover de ratón, no re-alternar
+          if (lastPointerType === 'mouse') {
+            return;
+          }
+          const isCurrentlyFlipped = card.dataset.flipped === 'true';
+          const nextState = !isCurrentlyFlipped;
+
+          // En táctil, abrir una cierra las demás
+          if (nextState) {
+            closeAllCards();
+          }
+          setCardFlipped(card, nextState);
+        });
+      }
+    });
+
+    // Cerrar tarjetas con la tecla Escape
+    document.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        closeAllCards();
+      }
     });
   })();
 </script>
